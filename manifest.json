@@ -1,0 +1,10 @@
+{
+  "name": "Craftcuts",
+  "fileName": "craftcuts-eXtension",
+  "author" : "FlohGro",
+  "author-email" : "hi@flohgro.com",
+  "description" : "Shortcuts eXtension for Craft",
+  "id": "do.craft.flohgro.craftcuts",
+  "api": "0.0.4",
+  "main": "index.html"
+}
