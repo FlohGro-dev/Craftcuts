@@ -34,7 +34,9 @@ After installing Craftcuts the first time (or updating it to a new version) you'
 To add your Shortcuts you have to type in the exact name of the Shortcut you want to launch from Craft into the text field and then click the "Add Shortcut" button.
 If you want to remove a shortcut just click the "Remove Shortcut" button which will open a menu with all currently activated Shortcuts. When you select one of them it will be removed from Craftcuts.
 
-This will create a new button in the "RUN" section of the eXtension.
+This will create a new button in the "RUN" section of the eXtension with the name of your Shortcut.
+
+**Attention:** ensure to use the exact name of the Shortcut, otherwise it will not work and you'll get an error in the Shortcuts app.
 
 In theory thats all you need todo - when you click the newly created button Craftcuts will launch the Shortcut you provided.
 
