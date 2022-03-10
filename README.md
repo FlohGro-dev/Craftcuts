@@ -14,7 +14,7 @@ If you want to have a look to other things I'm working, check out my website at 
 
 ## Installation
 
-You can simply download the `.craftx` file from the latest Release and add it to your eXtensions in Craft on macOS.
+You can simply download the `.craftx` file from the Assets of the latest Release [here](https://github.com/FlohGro-dev/Craftcuts/releases) and add it to your eXtensions in Craft on macOS.
 
 If you want to built the eXtension by yourself (and e.g. make some custom modifications) use the instructions given by the people at Craft:
 
@@ -64,6 +64,7 @@ I want to provide as many Craftcuts as possible in this repository in the table 
 |---|---|---|---|
 | Craftcuts Template | Template Shortcut to use with Craftcuts | [@FlohGro](https://twitter.com/FlohGro) | [Download](https://www.icloud.com/shortcuts/3f9715ecb5784e1caeea9d538d0798a1) |
 | Craftcuts Reminders  | Creates Reminders based on the provided blocks | [@FlohGro](https://twitter.com/FlohGro) | [Download](https://www.icloud.com/shortcuts/4bdb51a8abe94061a6c221c87a720954) |
+| Craftcuts Random 2 Daily Note | Adds a Random Block of the provided blocks to your Daily Note | iBanks | [Download](https://www.icloud.com/shortcuts/639cffe2f48643e68b34aa868bd334aa) |
 
 I plan to add more features and configuration options to this eXtension in the future to pass more / different content to the triggered shortcuts. If you have ideas or use cases which are not yet supported just create a new issue in the repository or reach out to me on the platform of your choice: [contactme](https://flohgro.com/contactme/).
 
