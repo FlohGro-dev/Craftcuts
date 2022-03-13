@@ -64,7 +64,8 @@ I want to provide as many Craftcuts as possible in this repository in the table 
 |---|---|---|---|
 | Craftcuts Template | Template Shortcut to use with Craftcuts | [@FlohGro](https://twitter.com/FlohGro) | [Download](https://www.icloud.com/shortcuts/3f9715ecb5784e1caeea9d538d0798a1) |
 | Craftcuts Reminders  | Creates Reminders based on the provided blocks | [@FlohGro](https://twitter.com/FlohGro) | [Download](https://www.icloud.com/shortcuts/4bdb51a8abe94061a6c221c87a720954) |
-| Craftcuts Random 2 Daily Note | Adds a Random Block of the provided blocks to your Daily Note | iBanks | [Download](https://www.icloud.com/shortcuts/639cffe2f48643e68b34aa868bd334aa) |
+| Craftcuts Random 2 Daily Note | Adds a Random Block of the provided blocks to your Daily Note | [/u/iBanks3](https://www.reddit.com/user/iBanks3/) | [Download](https://www.icloud.com/shortcuts/639cffe2f48643e68b34aa868bd334aa) |
+| Craftcuts Open Urls | Open Urls from selected blocks in Safari | [/u/iBanks3](https://www.reddit.com/user/iBanks3/) & [@FlohGro](https://twitter.com/FlohGro) | [Download](https://www.icloud.com/shortcuts/ce7d64df29104f4b8b0273c7ec5ef767) |
 
 I plan to add more features and configuration options to this eXtension in the future to pass more / different content to the triggered shortcuts. If you have ideas or use cases which are not yet supported just create a new issue in the repository or reach out to me on the platform of your choice: [contactme](https://flohgro.com/contactme/).
 
