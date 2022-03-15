@@ -1,45 +1,86 @@
 import { initApp } from "./app";
 
-export let craftcutsMap = new Map<string,string>();
-export let craftcutsMapArr = Array.from(craftcutsMap.entries());
-
 export let isInitialized = false;
 
 export function updateShortcutsData(){
-  craftcutsMapArr = Array.from(craftcutsMap.entries());
   initApp()
   storeShortcutsData();
 }
 
-const craftCutDivider = "/|/|/|/"
-
 export async function storeShortcutsData(){
-  let data = ""
-  craftcutsMap.forEach((craftcutVal,craftcutKey) => {
-    data = data + craftcutKey + craftCutDivider + craftcutVal + "\n"
-  })
-  await craft.storageApi.put("craftcutsData", data);
-  console.log("stored data: " + data)
+  await craft.storageApi.put("craftcutsSet", JSON.stringify(craftcutsObjects));
 }
 
 export async function loadShortcutData(){
-  let storedData = await craft.storageApi.get("craftcutsData");
+  let storedSet = await craft.storageApi.get("craftcutsSet");
+    if(storedSet.status == "success"){
 
-  if (storedData.status == "success"){
-    const data = storedData.data
-    // parse Data
 
-    const craftcuts = data.split("\n")
-    craftcuts.pop()
+      let t = storedSet.data
+      let parsed = JSON.parse(t)
 
-    craftcuts.map((craftcut) => {
-      let keyValPair = craftcut.split(craftCutDivider);
-      craftcutsMap.set(keyValPair[0],keyValPair[1]);
-    })
-    console.log("loaded data: " + data)
-    updateShortcutsData()
-    console.log("updated updateShortcutsData()")
-    isInitialized = true;
-    initApp()
-  }
+      Object.entries(parsed).forEach((obj) => {
+
+        let str = JSON.stringify(obj[1]);
+        let craftcut = Craftcut.fromJSON(JSON.parse(str, Craftcut.reviver));
+        craftcutsObjects.push(craftcut)
+      }
+      )
+
+      updateShortcutsData()
+
+      isInitialized = true;
+      initApp()
+    }
 }
+
+export class Craftcut {
+
+  constructor(
+    private exactName: string,
+    private displayName: string,
+    private inputSettings: string[],
+    private inputSeparator: string
+  ){}
+
+  getExactName(): string {
+    return this.exactName;
+  }
+
+  getDisplayName(): string {
+    return this.displayName;
+  }
+
+  getInputSettings(): string[] {
+    return this.inputSettings;
+  }
+
+  getInputSeparator(): string {
+    return this.inputSeparator;
+  }
+
+  toJSON(): Craftcut {
+    return Object.assign({},this,{});
+  }
+
+  static fromJSON(json: Craftcut|string): Craftcut {
+    if (typeof json === 'string') {
+      // if it's a string, parse it first
+      return JSON.parse(json, Craftcut.reviver);
+    } else {
+      // create an instance of the User class
+      let craftcut = Object.create(Craftcut.prototype);
+      // copy all the fields from the json object
+      return Object.assign(craftcut, json, {});
+    }
+  }
+
+  static reviver(key: string, value: any): any {
+    return key === "" ? Craftcut.fromJSON(value) : value;
+  }
+
+}
+
+
+export let craftcutsSet = new Set<Craftcut>();
+export let craftcutsObjects:Craftcut[] = [];

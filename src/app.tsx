@@ -1,7 +1,7 @@
 import * as React from "react"
 import * as ReactDOM from 'react-dom'
 import * as Recoil from "recoil";
-import { AddShortcutButton, Craftcuts, RemoveShortcutButton } from "./components";
+import { AddShortcutManueButton, Craftcuts, RemoveShortcutButton } from "./components";
 import { ChakraProvider, ThemeConfig, Badge, Center } from "@chakra-ui/react";
 import { Container, Box, Flex } from "@chakra-ui/layout";
 import { extendTheme } from "@chakra-ui/react";
@@ -56,11 +56,11 @@ const Content: React.FC = () => {
         Craftcuts
       </Flex>
       <Badge>Add / Remove</Badge>
-      <AddShortcutButton />
+      <AddShortcutManueButton />
       <Center height='5px'>
       </Center>
       <RemoveShortcutButton />
-      <Center height='10px'>
+      <Center height='1px'>
       </Center>
       <Badge>Run</Badge>
       <Craftcuts />

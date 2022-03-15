@@ -71,6 +71,11 @@ I plan to add more features and configuration options to this eXtension in the f
 
 ## Changelog
 
+### v0.2 a lot more settings and Shortcut input options
+
+- **new:** a lot more settings are available to allow the user to select which inputs shall be provided to the Shortcut
+- **change:** URL Blocks will now be exported as markdown urls and not include a link to the original block in Craft since this makes more sense
+
 ### v0.1 initial release
 
 - **new** RUN Shortcuts from Craft
