@@ -60,12 +60,14 @@ This Template parses the provided content into the block content and the block d
 
 I want to provide as many Craftcuts as possible in this repository in the table below. If you created a Shortcut which can be used with Craftcuts just reach out to me with a description and the link to the Shortcut so I can add it here.
 
-| Name | Description | Creator | Download |
-|---|---|---|---|
-| Craftcuts Template | Template Shortcut to use with Craftcuts | [@FlohGro](https://twitter.com/FlohGro) | [Download](https://www.icloud.com/shortcuts/3f9715ecb5784e1caeea9d538d0798a1) |
-| Craftcuts Reminders  | Creates Reminders based on the provided blocks | [@FlohGro](https://twitter.com/FlohGro) | [Download](https://www.icloud.com/shortcuts/4bdb51a8abe94061a6c221c87a720954) |
-| Craftcuts Random 2 Daily Note | Adds a Random Block of the provided blocks to your Daily Note | [/u/iBanks3](https://www.reddit.com/user/iBanks3/) | [Download](https://www.icloud.com/shortcuts/639cffe2f48643e68b34aa868bd334aa) |
-| Craftcuts Open Urls | Open Urls from selected blocks in Safari | [/u/iBanks3](https://www.reddit.com/user/iBanks3/) & [@FlohGro](https://twitter.com/FlohGro) | [Download](https://www.icloud.com/shortcuts/ce7d64df29104f4b8b0273c7ec5ef767) |
+| Name | Description | Creator | Usecase / Additional Information | Download |
+|---|---|---|---|---|
+| Craftcuts Template | Template Shortcut to use with Craftcuts | [@FlohGro](https://twitter.com/FlohGro) | Template to create your own Shortcuts to work with Craftcuts | [Download](https://www.icloud.com/shortcuts/3f9715ecb5784e1caeea9d538d0798a1) |
+| Craftcuts Reminders  | Creates Reminders based on the provided blocks | [@FlohGro](https://twitter.com/FlohGro) | create reminders from provided blocks | [Download](https://www.icloud.com/shortcuts/4bdb51a8abe94061a6c221c87a720954) |
+| Craftcuts Random 2 Daily Note | Adds a Random Block of the provided blocks to your Daily Note | [/u/iBanks3](https://www.reddit.com/user/iBanks3/) |  | [Download](https://www.icloud.com/shortcuts/639cffe2f48643e68b34aa868bd334aa) |
+| Craftcuts Open Urls | Open Urls from selected blocks in Safari | [/u/iBanks3](https://www.reddit.com/user/iBanks3/) & [@FlohGro](https://twitter.com/FlohGro) | [Post on /r/CraftDocs](https://www.reddit.com/r/CraftDocs/comments/tezljn/safari_tabs_to_craft_copy_open_links_from_safari/) | [Download](https://www.icloud.com/shortcuts/ce7d64df29104f4b8b0273c7ec5ef767) |
+| Craft Task Reminders | Create Tasks in Reminders with dates (if provided block contains a link to a daily note) | [/u/iBanks3](https://www.reddit.com/user/iBanks3/) | [Post on /r/CraftDocs](https://www.reddit.com/r/CraftDocs/comments/tezoar/craft_task_reminder_get_your_tasks_from_craft/) | [Download](https://www.icloud.com/shortcuts/5f9b34583aba4b5cb3cd8c9ae627eb0d) |
+|
 
 I plan to add more features and configuration options to this eXtension in the future to pass more / different content to the triggered shortcuts. If you have ideas or use cases which are not yet supported just create a new issue in the repository or reach out to me on the platform of your choice: [contactme](https://flohgro.com/contactme/).
 
