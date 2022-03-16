@@ -47,31 +47,69 @@ const AddShortcutMenuButton: React.FC = () => {
       inputSettings.push(inputAllBlocks)
     }
 
-    let data = JSON.stringify(new Craftcut(exactName, displayName, inputSettings, inputSeparator));
-    let craftcut = Craftcut.fromJSON(JSON.parse(data));
+    let isValid = true;
+    let errorString = "";
+    if (inputSettings.length > 1 && inputSeparator == ""){
+      // a separator is needed -> abort the creation
+      isValid = false;
+      errorString = "Aborted: Please add a Separator"
+    }
 
-    craftcutsSet.add(craftcut)
-    craftcutsObjects.push(craftcut)
+    if(displayName == ""){
+      // no valid displayName
+      isValid = false;
+      errorString = "Aborted: Please add a display name"
+    }
+
+    if(exactName == ""){
+      // no valid displayName
+      isValid = false;
+      errorString = "Aborted: Please add the Shortcut name"
+    }
+
+    if (!isValid){
+      // a separator is needed -> abort the creation
+      toast({
+        id: "addedToast",
+        position: "bottom",
+        duration: 2000,
+        render: () => (
+          <Center>
+            <Box color='white' w='80%' borderRadius='lg' p={3} bg='red.500'>
+              {errorString}
+            </Box>
+          </Center>
+        ),
+      })
+
+    } else {
+      let data = JSON.stringify(new Craftcut(exactName, displayName, inputSettings, inputSeparator));
+      let craftcut = Craftcut.fromJSON(JSON.parse(data));
+
+      craftcutsSet.add(craftcut)
+      craftcutsObjects.push(craftcut)
 
 
-    toast({
-      id: "addedToast",
-      position: "bottom",
-      duration: 2000,
-      render: () => (
-        <Center>
-          <Box color='white' w='80%' borderRadius='lg' p={3} bg='blue.500'>
-            Added Shortcut: {exactName}
-          </Box>
-        </Center>
-      ),
-    })
-    updateShortcutsData();
+      toast({
+        id: "addedToast",
+        position: "bottom",
+        duration: 2000,
+        render: () => (
+          <Center>
+            <Box color='white' w='80%' borderRadius='lg' p={3} bg='blue.500'>
+              Added Shortcut: {exactName}
+            </Box>
+          </Center>
+        ),
+      })
+      updateShortcutsData();
 
-    // reset input fields
-    setExactName("");
-    setDisplayName("");
-    setInputSeparator("");
+      // reset input fields
+      setExactName("");
+      setDisplayName("");
+      setInputSeparator("");
+      inputSettings = [];
+    }
 
     setIsLoadingSet(false);
   }

@@ -30,13 +30,25 @@ Theoretically this enables endless possibilities for you to export your contents
 
 Craftcuts uses Apples official URL scheme for Shortcuts.
 
-After installing Craftcuts the first time (or updating it to a new version) you'll see a text field and two buttons.
-To add your Shortcuts you have to type in the exact name of the Shortcut you want to launch from Craft into the text field and then click the "Add Shortcut" button.
+After installing Craftcuts the first time (or updating it to a new version) you'll see only two buttons "Add Shortcut" and "Remove Shortcut".
+To add a Shortcuts click on the "Add Shortcut" button which will open the configuration window for your Shortcut.
+You have to provide the following inputs to configure a Shortcut:
+
+- Shortcut Name (required): insert the **exact** name of the Shortcut, otherwise it will not work and you'll get an error in the Shortcuts app.
+- Display Name (required): this will be the name of the button in the eXtension to run this Shortcut
+- Shortcut Input (recommended):
+  - in theory you could run a shortcut without any input from your document (if you want to turn on lights from Craft - this is totally possible:))
+  - to provide blocks from the current document as input select one or more of the available options:
+    - page title - this will pass the markdown deeplink to the current page to your Shortcut
+    - selected blocks - this will pass the markdown deeplink to all currently selected blocks to your Shortcut
+    - open tasks - this will pass the markdown deeplink of all open tasks in the current document to your Shortcut
+    - url blocks - this will pass all url blocks (the ones with the preview) in markdown format from the current document to your Shortcut
+    - all blocks - this will pass the markdown deeplinks to all blocks on the current page to your Shortcut
+- Separator (required if more than one input option is selected): select a separator between the inputs passed to your Shortcut - attention: please use a string which you would never use in the text of a block like e.g. "///&&&///". Use the same separator in your shortcut to separate the inputs from each other.
+
+When you finished your configuration click on the "Add Shortcut" button in the lower right of the window. You will see a success message and a new button will be created in your Craftcuts eXtension.
+
 If you want to remove a shortcut just click the "Remove Shortcut" button which will open a menu with all currently activated Shortcuts. When you select one of them it will be removed from Craftcuts.
-
-This will create a new button in the "RUN" section of the eXtension with the name of your Shortcut.
-
-**Attention:** ensure to use the exact name of the Shortcut, otherwise it will not work and you'll get an error in the Shortcuts app.
 
 In theory thats all you need todo - when you click the newly created button Craftcuts will launch the Shortcut you provided.
 
@@ -44,9 +56,9 @@ After the Shortcut was successfully executed Craft will be opened again.
 
 This gets really powerful when you make use of the values passed to the Shortcut.
 
-When you select one or more blocks in Craft the launched Shortcut will receive the markdown deeplinks to the selected blocks as text input.
+Depending on your configuration the launched Shortcut will receive the markdown deeplinks to e.g. the selected blocks or all tasks in the current document as text input.
 
-An example input to the Shortcut could look like this when you selected three blocks:
+An example input to the Shortcut could look like this:
 
 ```markdown
 [reminder 1](craftdocs://open?blockId=E151E8DE-B3C3-44D5-802D-E18AB328A0E9&spaceId=2579f404-e3cd-4s7n-gfe1-6c342199c9g2)
@@ -55,8 +67,11 @@ An example input to the Shortcut could look like this when you selected three bl
 ```
 The input can be used to do anything you like. You can e.g. add each block to Apples Reminders app with links back to the original blocks in Craft, or export just the content to your favorite writing app.
 
-To help you develop your own shortcut and make use of the passed content I created a Template Shortcut which you can get [here](https://www.icloud.com/shortcuts/3f9715ecb5784e1caeea9d538d0798a1).
-This Template parses the provided content into the block content and the block deeplink.
+To help you develop your own shortcut and make use of the passed content I created two Template Shortcuts to support you develop your own SHortcut for Craftcuts.
+- [Template for use with Single Input](https://www.icloud.com/shortcuts/3f9715ecb5784e1caeea9d538d0798a1)
+- [Template for use with Multiple Input](https://www.icloud.com/shortcuts/7a3f497c79b845cea13963ced15afb99)
+
+These Template parse the provided markdown deeplinks of the blocks into the content and the deeplink.
 
 I want to provide as many Craftcuts as possible in this repository in the table below. If you created a Shortcut which can be used with Craftcuts just reach out to me with a description and the link to the Shortcut so I can add it here.
 
@@ -75,7 +90,14 @@ I plan to add more features and configuration options to this eXtension in the f
 
 ### v0.2 a lot more settings and Shortcut input options
 
-- **new:** a lot more settings are available to allow the user to select which inputs shall be provided to the Shortcut
+- **new:** configuration menu for added Shortcuts
+- **new:** selecting a display name for the Shortcut is now possible
+- **new:** configuration options to select the inputs provided to the Shortcut:
+  - page title
+  - selected blocks
+  - open tasks
+  - url blocks
+  - all blocks
 - **change:** URL Blocks will now be exported as markdown urls and not include a link to the original block in Craft since this makes more sense
 
 ### v0.1 initial release
