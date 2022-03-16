@@ -1,4 +1,4 @@
-export { default as AddShortcutButton } from "./AddShortcutButton";
+export { default as AddShortcutManueButton } from "./AddShortcutMenuButton";
 export { default as RemoveShortcutButton } from "./RemoveShortcutButton";
 export { default as Craftcuts } from "./Craftcuts"
 

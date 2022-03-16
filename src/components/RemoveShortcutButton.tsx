@@ -3,13 +3,17 @@ import { Button } from "@chakra-ui/button";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useToast } from "@chakra-ui/toast";
 import { Box, Center, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
-import { craftcutsMap, craftcutsMapArr, updateShortcutsData } from "../settingsUtils";
+import { Craftcut, craftcutsObjects, updateShortcutsData } from "../settingsUtils";
 
 const RemoveShortcutButton: React.FC = () => {
   const toast = useToast();
-  const onClick = async (val:string) => {
+  const onClick = async (val:Craftcut) => {
 
-    craftcutsMap.delete(val);
+    let index = craftcutsObjects.indexOf(val, 0);
+    if(index != -1){
+      craftcutsObjects.splice(index, 1);
+    }
+
     updateShortcutsData();
 
     if (!toast.isActive("removedToast")) {
@@ -42,9 +46,9 @@ const RemoveShortcutButton: React.FC = () => {
           </MenuButton >
           <MenuList>
           {
-            craftcutsMapArr
+            craftcutsObjects
               .map((element) => (
-                <MenuItem onClick={() => onClick(element[0])}>{element[0]}</MenuItem>
+                <MenuItem onClick={() => onClick(element)}>{element.getDisplayName()}</MenuItem>
               ))
           }
           </MenuList>
