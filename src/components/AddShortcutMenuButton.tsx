@@ -20,54 +20,65 @@ const AddShortcutMenuButton: React.FC = () => {
 
   const [inputSeparator, setInputSeparator] = React.useState("");
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [show, setShow] = React.useState(false);
+
+  const handleClose = () => {
+    setInputPageTitle("")
+    setInputSelection("")
+    setInputOpenTasks("")
+    setInputAllUrls("")
+    setInputAllBlocks("")
+    setShow(false);
+  }
+  const handleShow = () => setShow(true);
 
   const onAdd = async () => {
     setIsLoadingSet(true);
+    let inputSettings: string[] = [];
 
-    let inputSettings:string[] = [];
 
-    if(inputPageTitle != ""){
+    if (inputPageTitle != "") {
       inputSettings.push(inputPageTitle)
     }
 
-    if(inputSelection != ""){
+    if (inputSelection != "") {
       inputSettings.push(inputSelection)
     }
 
-    if(inputOpenTasks != ""){
+    if (inputOpenTasks != "") {
       inputSettings.push(inputOpenTasks)
     }
 
-    if(inputAllUrls != ""){
+    if (inputAllUrls != "") {
       inputSettings.push(inputAllUrls);
     }
 
-    if(inputAllBlocks != ""){
+    if (inputAllBlocks != "") {
       inputSettings.push(inputAllBlocks)
     }
 
     let isValid = true;
     let errorString = "";
-    if (inputSettings.length > 1 && inputSeparator == ""){
+    if (inputSettings.length > 1 && inputSeparator == "") {
       // a separator is needed -> abort the creation
       isValid = false;
       errorString = "Aborted: Please add a Separator"
     }
 
-    if(displayName == ""){
+    if (displayName == "") {
       // no valid displayName
       isValid = false;
       errorString = "Aborted: Please add a display name"
     }
 
-    if(exactName == ""){
+
+    if (exactName == "") {
       // no valid displayName
       isValid = false;
       errorString = "Aborted: Please add the Shortcut name"
     }
 
-    if (!isValid){
+    if (!isValid) {
       // a separator is needed -> abort the creation
       toast({
         id: "addedToast",
@@ -102,73 +113,72 @@ const AddShortcutMenuButton: React.FC = () => {
           </Center>
         ),
       })
-      updateShortcutsData();
-
       // reset input fields
       setExactName("");
       setDisplayName("");
       setInputSeparator("");
-      inputSettings = [];
+      updateShortcutsData();
     }
 
     setIsLoadingSet(false);
+
   }
   return (
     <>
-      <Button onClick={onOpen}
-      width="100%"
-      leftIcon={<PlusSquareIcon />}
-      colorScheme='green'
-      variant='solid'
+      <Button onClick={handleShow}
+        width="100%"
+        leftIcon={<PlusSquareIcon />}
+        colorScheme='green'
+        variant='solid'
       >Add Shortcut</Button>
 
       <Modal
-        isOpen={isOpen}
-        onClose={onClose}
+        isOpen={show}
+        onClose={handleClose}
       >
         <ModalOverlay />
         <ModalContent>
-        <ModalHeader>Add Shortcut</ModalHeader>
+          <ModalHeader>Add Shortcut</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-          <Stack spacing='10px' direction={['column']}>
-            <FormControl>
-              <FormLabel>Shortcut Name</FormLabel>
-              <Input
-              placeholder='insert the exact Shortcut name'
-              value={exactName}
-              onChange={(e) => setExactName(e.target.value)}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel>Display Name</FormLabel>
-              <Input
-              placeholder='insert the display name for the Shortcut'
-              value={displayName}
-              onChange={(e) => setDisplayName(e.target.value)}
-              />
-            </FormControl>
-            <FormControl>
-            <CheckboxGroup colorScheme='purple' defaultValue={[""]}> Shortcut Input
+            <Stack spacing='10px' direction={['column']}>
+              <FormControl>
+                <FormLabel>Shortcut Name</FormLabel>
+                <Input
+                  placeholder='insert the exact Shortcut name'
+                  value={exactName}
+                  onChange={(e) => setExactName(e.target.value)}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Display Name</FormLabel>
+                <Input
+                  placeholder='insert the display name for the Shortcut'
+                  value={displayName}
+                  onChange={(e) => setDisplayName(e.target.value)}
+                />
+              </FormControl>
+              <FormControl>
+                <CheckboxGroup colorScheme='purple' defaultValue={[""]}> Shortcut Input
               <FormHelperText>Select the input which shall be provided to the Shortcut (all with links to the original block(s))</FormHelperText>
-              <Stack spacing={[1, 5]} direction={['column', 'row']}>
-              <Checkbox value='pageTitle' onChange={(e) => setInputPageTitle(e.target.checked ? "pageTitle":"")}>page title</Checkbox>
-              <Checkbox value='selection' onChange={(e) => setInputSelection(e.target.checked ? "selection":"")}>selected blocks</Checkbox>
-              <Checkbox value='openTasks' onChange={(e) => setInputOpenTasks(e.target.checked ? "openTasks":"")}>open tasks</Checkbox>
-              <Checkbox value='allUrls' onChange={(e) => setInputAllUrls(e.target.checked ? "allUrls":"")}>url blocks</Checkbox>
-              <Checkbox value='allBlocks' onChange={(e) => setInputAllBlocks(e.target.checked ? "allBlocks":"")}>all blocks</Checkbox>
-              </Stack>
-            </CheckboxGroup>
-            </FormControl>
-            <FormControl>
-              <FormLabel>Separator</FormLabel>
-              <Input
-              placeholder='set a separator if you selected multiple inputs'
-              value={inputSeparator}
-              onChange={(e) => setInputSeparator(e.target.value)}
-              />
-            </FormControl>
-          </Stack>
+                  <Stack spacing={[1, 5]} direction={['column', 'row']}>
+                    <Checkbox value='pageTitle' onChange={(e) => setInputPageTitle(e.target.checked ? "pageTitle" : "")}>page title</Checkbox>
+                    <Checkbox value='selection' onChange={(e) => setInputSelection(e.target.checked ? "selection" : "")}>selected blocks</Checkbox>
+                    <Checkbox value='openTasks' onChange={(e) => setInputOpenTasks(e.target.checked ? "openTasks" : "")}>open tasks</Checkbox>
+                    <Checkbox value='allUrls' onChange={(e) => setInputAllUrls(e.target.checked ? "allUrls" : "")}>url blocks</Checkbox>
+                    <Checkbox value='allBlocks' onChange={(e) => setInputAllBlocks(e.target.checked ? "allBlocks" : "")}>all blocks</Checkbox>
+                  </Stack>
+                </CheckboxGroup>
+              </FormControl>
+              <FormControl>
+                <FormLabel>Separator</FormLabel>
+                <Input
+                  placeholder='set a separator if you selected multiple inputs'
+                  value={inputSeparator}
+                  onChange={(e) => setInputSeparator(e.target.value)}
+                />
+              </FormControl>
+            </Stack>
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='green' mr={3} onClick={onAdd} isLoading={isLoadingSet}>

@@ -11,6 +11,7 @@ const Craftcuts: React.FC = () => {
   const onRun = async (craftcut:Craftcut) => {
     setIsLoading(true);
     let shortcutInputBlocks:string[] = [];
+    let openUrlOnSuccess = true;
 
     // decide on input
     const inputSettings = craftcut.getInputSettings()
@@ -65,6 +66,8 @@ const Craftcuts: React.FC = () => {
       if(separatorNeeded){
           shortcutInputBlocks.push(craftcut.getInputSeparator())
       }
+      //prevent open url if this is enabled
+      openUrlOnSuccess = false;
     }
 
     //allBlocks
@@ -75,6 +78,11 @@ const Craftcuts: React.FC = () => {
       }
       if(separatorNeeded){
           shortcutInputBlocks.push(craftcut.getInputSeparator())
+      }
+
+      // reenable open url if it is disabled
+      if(!openUrlOnSuccess){
+        openUrlOnSuccess = true;
       }
     }
 
@@ -93,14 +101,16 @@ const Craftcuts: React.FC = () => {
     if (shortcutInputBlocks.length > 0){
       xCallbackUrl = xCallbackUrl + "&input=text&text=" + input;
 
-      let callbackBlock = shortcutInputBlocks[0];
-      const regex = /\[(.*)\]\((.*)\)/;
-      const subst = `$2`;
-      callbackBlock = callbackBlock.replace(regex, subst);
+      if(openUrlOnSuccess){
+        let callbackBlock = shortcutInputBlocks[0];
+        const regex = /\[(.*)\]\((.*)\)/;
+        const subst = `$2`;
+        callbackBlock = callbackBlock.replace(regex, subst);
 
-      // also add the x-success url to open the first block after the shortcut was executed
-      // note: this will not work since shortcuts automatically appends a "result=" string to the link and craft can't handle this right now
-      xCallbackUrl = xCallbackUrl + "&x-success=" + callbackBlock
+        // also add the x-success url to open the first block after the shortcut was executed
+        // note: this will not work since shortcuts automatically appends a "result=" string to the link and craft can't handle this right now
+        xCallbackUrl = xCallbackUrl + "&x-success=" + callbackBlock
+      }
     }
     craft.editorApi.openURL(xCallbackUrl);
     setIsLoading(false);
