@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@chakra-ui/button";
 import { PlusSquareIcon } from "@chakra-ui/icons";
 import { useToast } from "@chakra-ui/toast";
-import { Box, Center, Checkbox, CheckboxGroup, FormControl, FormHelperText, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, useDisclosure } from "@chakra-ui/react";
+import { Box, Center, Checkbox, CheckboxGroup, FormControl, FormHelperText, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack } from "@chakra-ui/react";
 import { craftcutsSet, Craftcut, updateShortcutsData, craftcutsObjects } from "../settingsUtils";
 
 const AddShortcutMenuButton: React.FC = () => {

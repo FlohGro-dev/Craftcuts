@@ -69,7 +69,7 @@ The input can be used to do anything you like. You can e.g. add each block to Ap
 
 To help you develop your own shortcut and make use of the passed content I created two Template Shortcuts to support you develop your own SHortcut for Craftcuts.
 - [Template for use with Single Input](https://www.icloud.com/shortcuts/3f9715ecb5784e1caeea9d538d0798a1)
-- [Template for use with Multiple Input](https://www.icloud.com/shortcuts/7a3f497c79b845cea13963ced15afb99)
+- [Template for use with Multiple Input](https://www.icloud.com/shortcuts/0c60cb58a3fc4fdf96004bfaef648cb3)
 
 These Template parse the provided markdown deeplinks of the blocks into the content and the deeplink.
 
