@@ -80,7 +80,7 @@ To help you develop your own shortcut and make use of the passed content I creat
 
 These Template parse the provided markdown deeplinks of the blocks into the content and the deeplink.
 
-## Shorctus Made for Craftcuts
+## Shorcuts Made for Craftcuts
 
 I want to provide as many Craftcuts as possible in this repository in the table below. If you created a Shortcut which can be used with Craftcuts just reach out to me with a description and the link to the Shortcut so I can add it here.
 
