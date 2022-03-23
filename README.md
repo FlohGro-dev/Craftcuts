@@ -75,7 +75,7 @@ The input can be used to do anything you like. You can e.g. add each block to Ap
 
 To help you develop your own shortcut and make use of the passed content I created two Template Shortcuts to support you develop your own SHortcut for Craftcuts.
 - [Template for use with Single Input](https://www.icloud.com/shortcuts/3f9715ecb5784e1caeea9d538d0798a1)
-- [Template for use with Multiple Input](https://www.icloud.com/shortcuts/0c60cb58a3fc4fdf96004bfaef648cb3)
+- [Template for use with Multiple Input](https://www.icloud.com/shortcuts/67290191f1ac4741b864f8f07672a0f4)
 - [Template to add text content to the current page](https://www.icloud.com/shortcuts/aaf323bbecfe44aaaa68bae257df7bb4)
 
 These Template parse the provided markdown deeplinks of the blocks into the content and the deeplink.
@@ -97,6 +97,12 @@ I want to provide as many Craftcuts as possible in this repository in the table 
 I plan to add more features and configuration options to this eXtension in the future to pass more / different content to the triggered shortcuts. If you have ideas or use cases which are not yet supported just create a new issue in the repository or reach out to me on the platform of your choice: [contactme](https://flohgro.com/contactme/).
 
 ## Changelog
+
+### v0.3 additional inputs with block changes
+
+- **new:** input option *cancel and move tasks* - this will cancel any open task in your current document and provide them as input to the shortcut (you can use this to move tasks from the todays note to tomorrows note with [this Shortcut](https://www.icloud.com/shortcuts/a07520bdfe884246964532615361404b))
+- **new:** input option *done tasks* - will provide all done tasks from a document to the Shortcut
+- **updated:** multiple input template supports *done tasks* input - download [here](https://www.icloud.com/shortcuts/67290191f1ac4741b864f8f07672a0f4)
 
 ### v0.2 a lot more settings and Shortcut input options
 

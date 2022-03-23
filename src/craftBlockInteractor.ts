@@ -1,4 +1,4 @@
-import { CraftTextBlock, CraftUrlBlock } from "@craftdocs/craft-extension-api";
+import { CraftBlockUpdate, CraftTextBlock, CraftUrlBlock } from "@craftdocs/craft-extension-api";
 
 export async function getSelectedBlocksAsMdStingsFromCurrentPage(): Promise<string[] | undefined> {
   let getSelectionResult = await craft.editorApi.getSelection();
@@ -46,6 +46,35 @@ export async function getUncheckedTodoItemsFromCurrentPage() {
   })
 
   todoBlocks.map((block) => {
+    blocksMdStrings.push(getCraftTextBlockMdString(block))
+  })
+
+  return blocksMdStrings;
+}
+
+export async function getCheckedTodoItemsFromCurrentPage(){
+  let doneBlocks: CraftTextBlock[] = [];
+  let blocksMdStrings: string[] = [];
+
+  const getPageResult = await craft.dataApi.getCurrentPage();
+
+  if (getPageResult.status !== "success") {
+    throw new Error(getPageResult.message)
+  }
+  const pageBlock = getPageResult.data
+
+  pageBlock.subblocks.forEach(function(subBlock) {
+    if (subBlock.listStyle.type == "todo") {
+      if (subBlock.listStyle.state == "checked") {
+        if (subBlock.type == "textBlock") {
+          doneBlocks.push(subBlock);
+        }
+      }
+    }
+
+  })
+
+  doneBlocks.map((block) => {
     blocksMdStrings.push(getCraftTextBlockMdString(block))
   })
 
@@ -103,6 +132,41 @@ export async function getAllUrlsFromCurrentPage() {
 
   urlBlocks.map((block) => {
     blocksMdStrings.push(getCraftUrlBlockMdString(block))
+  })
+
+  return blocksMdStrings;
+}
+
+
+export async function getAndCancelUncheckedTodoItemsFromCurrentPage() {
+  let todoBlocks: CraftTextBlock[] = [];
+  let blocksMdStrings: string[] = [];
+  let blocksToUpdate: CraftBlockUpdate[] = [];
+
+  const getPageResult = await craft.dataApi.getCurrentPage();
+
+  if (getPageResult.status !== "success") {
+    throw new Error(getPageResult.message)
+  }
+  const pageBlock = getPageResult.data
+
+  pageBlock.subblocks.forEach(function(subBlock) {
+    if (subBlock.listStyle.type == "todo") {
+      if (subBlock.listStyle.state == "unchecked") {
+        if (subBlock.type == "textBlock") {
+          todoBlocks.push(subBlock);
+          subBlock.listStyle.state = "canceled";
+          blocksToUpdate.push(subBlock)
+        }
+      }
+    }
+
+  })
+
+  craft.dataApi.updateBlocks(blocksToUpdate);
+
+  todoBlocks.map((block) => {
+    blocksMdStrings.push(getCraftTextBlockMdString(block))
   })
 
   return blocksMdStrings;

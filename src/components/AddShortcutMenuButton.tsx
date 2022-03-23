@@ -15,8 +15,10 @@ const AddShortcutMenuButton: React.FC = () => {
   const [inputPageTitle, setInputPageTitle] = React.useState("");
   const [inputSelection, setInputSelection] = React.useState("");
   const [inputOpenTasks, setInputOpenTasks] = React.useState("");
+  const [inputDoneTasks, setInputDoneTasks] = React.useState("");
   const [inputAllUrls, setInputAllUrls] = React.useState("");
   const [inputAllBlocks, setInputAllBlocks] = React.useState("");
+  const [inputCancelAndMoveTasks, setInputCancelAndMoveTasks] = React.useState("");
 
   const [inputSeparator, setInputSeparator] = React.useState("");
 
@@ -26,8 +28,10 @@ const AddShortcutMenuButton: React.FC = () => {
     setInputPageTitle("")
     setInputSelection("")
     setInputOpenTasks("")
+    setInputDoneTasks("")
     setInputAllUrls("")
     setInputAllBlocks("")
+    setInputCancelAndMoveTasks("")
     setShow(false);
   }
   const handleShow = () => setShow(true);
@@ -49,6 +53,10 @@ const AddShortcutMenuButton: React.FC = () => {
       inputSettings.push(inputOpenTasks)
     }
 
+    if (inputDoneTasks != ""){
+      inputSettings.push(inputDoneTasks)
+    }
+
     if (inputAllUrls != "") {
       inputSettings.push(inputAllUrls);
     }
@@ -57,8 +65,22 @@ const AddShortcutMenuButton: React.FC = () => {
       inputSettings.push(inputAllBlocks)
     }
 
+
     let isValid = true;
     let errorString = "";
+
+    // advanced inputs
+
+    if(inputCancelAndMoveTasks != ""){
+      if(inputSettings.length > 1){
+        // invlalidate the configuration - currently just supported as single import
+        isValid = false;
+        errorString = "not supported with several inputs"
+      }
+      inputSettings.push(inputCancelAndMoveTasks)
+    }
+
+
     if (inputSettings.length > 1 && inputSeparator == "") {
       // a separator is needed -> abort the creation
       isValid = false;
@@ -165,8 +187,15 @@ const AddShortcutMenuButton: React.FC = () => {
                     <Checkbox value='pageTitle' onChange={(e) => setInputPageTitle(e.target.checked ? "pageTitle" : "")}>page title</Checkbox>
                     <Checkbox value='selection' onChange={(e) => setInputSelection(e.target.checked ? "selection" : "")}>selected blocks</Checkbox>
                     <Checkbox value='openTasks' onChange={(e) => setInputOpenTasks(e.target.checked ? "openTasks" : "")}>open tasks</Checkbox>
+                    <Checkbox value='doneTasks' onChange={(e) => setInputDoneTasks(e.target.checked ? "doneTasks" : "")}>done tasks</Checkbox>
                     <Checkbox value='allUrls' onChange={(e) => setInputAllUrls(e.target.checked ? "allUrls" : "")}>url blocks</Checkbox>
                     <Checkbox value='allBlocks' onChange={(e) => setInputAllBlocks(e.target.checked ? "allBlocks" : "")}>all blocks</Checkbox>
+                  </Stack>
+                </CheckboxGroup>
+                <CheckboxGroup colorScheme='purple' defaultValue={[""]}> Input with block modifications
+              <FormHelperText>These inputs will modify blocks in your document</FormHelperText>
+                  <Stack spacing={[1, 5]} direction={['column', 'row']}>
+                    <Checkbox value='cancelAndMoveTasks' onChange={(e) => setInputCancelAndMoveTasks(e.target.checked ? "cancelAndMoveTasks" : "")}>cancel and move tasks</Checkbox>
                   </Stack>
                 </CheckboxGroup>
               </FormControl>

@@ -3,7 +3,7 @@ import { Button } from "@chakra-ui/button";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { Stack } from "@chakra-ui/react";
 import { Craftcut, craftcutsObjects} from "../settingsUtils";
-import { getAllBlocksFromCurrentPage, getAllUrlsFromCurrentPage, getSelectedBlocksAsMdStingsFromCurrentPage, getTitleOfCurrentPage, getUncheckedTodoItemsFromCurrentPage } from "../craftBlockInteractor";
+import { getAllBlocksFromCurrentPage, getAllUrlsFromCurrentPage, getAndCancelUncheckedTodoItemsFromCurrentPage, getCheckedTodoItemsFromCurrentPage, getSelectedBlocksAsMdStingsFromCurrentPage, getTitleOfCurrentPage, getUncheckedTodoItemsFromCurrentPage } from "../craftBlockInteractor";
 
 const Craftcuts: React.FC = () => {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -56,6 +56,18 @@ const Craftcuts: React.FC = () => {
       }
     }
 
+    //doneTasks
+
+    if(inputSettings.includes("doneTasks")){
+      let blocks = await getCheckedTodoItemsFromCurrentPage()
+      if(blocks){
+        shortcutInputBlocks = shortcutInputBlocks.concat(blocks)
+      }
+      if(separatorNeeded){
+          shortcutInputBlocks.push(craftcut.getInputSeparator())
+      }
+    }
+
 
     //all Urls
     if(inputSettings.includes("allUrls")){
@@ -73,6 +85,23 @@ const Craftcuts: React.FC = () => {
     //allBlocks
     if(inputSettings.includes("allBlocks")){
       let blocks = await getAllBlocksFromCurrentPage()
+      if(blocks){
+        shortcutInputBlocks = shortcutInputBlocks.concat(blocks)
+      }
+      if(separatorNeeded){
+          shortcutInputBlocks.push(craftcut.getInputSeparator())
+      }
+
+      // reenable open url if it is disabled
+      if(!openUrlOnSuccess){
+        openUrlOnSuccess = true;
+      }
+    }
+
+    // cancelAndMoveTasks
+    if(inputSettings.includes("cancelAndMoveTasks")){
+
+      let blocks = await getAndCancelUncheckedTodoItemsFromCurrentPage()
       if(blocks){
         shortcutInputBlocks = shortcutInputBlocks.concat(blocks)
       }
