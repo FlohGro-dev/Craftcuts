@@ -99,6 +99,12 @@ I plan to add more features and configuration options to this eXtension in the f
 
 ## Changelog
 
+### v0.3.1 option to delete open tasks in document
+
+- **new:** input option *delete and move tasks* - this will delete any open task in your current document and provide them as input to the shortcut
+  - attention this is a destructive action! if you don't add those tasks to another document, they will be lost
+  - you can use this to move tasks from the todays note to tomorrows note with [this Shortcut](https://www.icloud.com/shortcuts/a07520bdfe884246964532615361404b)
+
 ### v0.3 additional inputs with block changes
 
 - **new:** input option *cancel and move tasks* - this will cancel any open task in your current document and provide them as input to the shortcut (you can use this to move tasks from the todays note to tomorrows note with [this Shortcut](https://www.icloud.com/shortcuts/a07520bdfe884246964532615361404b))
