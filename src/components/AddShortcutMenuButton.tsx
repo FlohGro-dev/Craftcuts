@@ -19,6 +19,7 @@ const AddShortcutMenuButton: React.FC = () => {
   const [inputAllUrls, setInputAllUrls] = React.useState("");
   const [inputAllBlocks, setInputAllBlocks] = React.useState("");
   const [inputCancelAndMoveTasks, setInputCancelAndMoveTasks] = React.useState("");
+  const [inputDeleteAndMoveTasks, setInputDeleteAndMoveTasks] = React.useState("");
 
   const [inputSeparator, setInputSeparator] = React.useState("");
 
@@ -32,6 +33,7 @@ const AddShortcutMenuButton: React.FC = () => {
     setInputAllUrls("")
     setInputAllBlocks("")
     setInputCancelAndMoveTasks("")
+    setInputDeleteAndMoveTasks("")
     setShow(false);
   }
   const handleShow = () => setShow(true);
@@ -78,6 +80,15 @@ const AddShortcutMenuButton: React.FC = () => {
         errorString = "not supported with several inputs"
       }
       inputSettings.push(inputCancelAndMoveTasks)
+    }
+
+    if(inputDeleteAndMoveTasks != ""){
+      if(inputSettings.length > 1){
+        // invlalidate the configuration - currently just supported as single import
+        isValid = false;
+        errorString = "not supported with several inputs"
+      }
+      inputSettings.push(inputDeleteAndMoveTasks)
     }
 
 
@@ -196,6 +207,7 @@ const AddShortcutMenuButton: React.FC = () => {
               <FormHelperText>These inputs will modify blocks in your document</FormHelperText>
                   <Stack spacing={[1, 5]} direction={['column', 'row']}>
                     <Checkbox value='cancelAndMoveTasks' onChange={(e) => setInputCancelAndMoveTasks(e.target.checked ? "cancelAndMoveTasks" : "")}>cancel and move tasks</Checkbox>
+                    <Checkbox value='deleteAndMoveTasks' onChange={(e) => setInputDeleteAndMoveTasks(e.target.checked ? "deleteAndMoveTasks" : "")}>delete and move tasks</Checkbox>
                   </Stack>
                 </CheckboxGroup>
               </FormControl>

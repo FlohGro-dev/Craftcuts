@@ -172,6 +172,40 @@ export async function getAndCancelUncheckedTodoItemsFromCurrentPage() {
   return blocksMdStrings;
 }
 
+export async function getAndDeleteUncheckedTodoItemsFromCurrentPage() {
+  let todoBlocks: CraftTextBlock[] = [];
+  let blocksMdStrings: string[] = [];
+  let blocksToDelete: string[] = [];
+
+  const getPageResult = await craft.dataApi.getCurrentPage();
+
+  if (getPageResult.status !== "success") {
+    throw new Error(getPageResult.message)
+  }
+  const pageBlock = getPageResult.data
+
+  pageBlock.subblocks.forEach(function(subBlock) {
+    if (subBlock.listStyle.type == "todo") {
+      if (subBlock.listStyle.state == "unchecked") {
+        if (subBlock.type == "textBlock") {
+          todoBlocks.push(subBlock);
+          subBlock.listStyle.state = "canceled";
+          blocksToDelete.push(subBlock.id)
+        }
+      }
+    }
+
+  })
+
+  todoBlocks.map((block) => {
+    blocksMdStrings.push(getCraftTextBlockMdString(block))
+  })
+
+  craft.dataApi.deleteBlocks(blocksToDelete);
+
+  return blocksMdStrings;
+}
+
 
 // helper functions
 
