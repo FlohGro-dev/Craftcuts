@@ -139,7 +139,8 @@ export async function getAllUrlsFromCurrentPage() {
 
 
 export async function getAndCancelUncheckedTodoItemsFromCurrentPage() {
-  let todoBlocks: CraftTextBlock[] = [];
+  let todoTextBlocks: CraftTextBlock[] = [];
+  let todoUrlBlocks: CraftUrlBlock[] = [];
   let blocksMdStrings: string[] = [];
   let blocksToUpdate: CraftBlockUpdate[] = [];
 
@@ -154,7 +155,11 @@ export async function getAndCancelUncheckedTodoItemsFromCurrentPage() {
     if (subBlock.listStyle.type == "todo") {
       if (subBlock.listStyle.state == "unchecked") {
         if (subBlock.type == "textBlock") {
-          todoBlocks.push(subBlock);
+          todoTextBlocks.push(subBlock);
+          subBlock.listStyle.state = "canceled";
+          blocksToUpdate.push(subBlock)
+        }else if (subBlock.type == "urlBlock"){
+          todoUrlBlocks.push(subBlock);
           subBlock.listStyle.state = "canceled";
           blocksToUpdate.push(subBlock)
         }
@@ -163,17 +168,21 @@ export async function getAndCancelUncheckedTodoItemsFromCurrentPage() {
 
   })
 
-  craft.dataApi.updateBlocks(blocksToUpdate);
-
-  todoBlocks.map((block) => {
+  todoTextBlocks.map((block) => {
     blocksMdStrings.push(getCraftTextBlockMdString(block))
   })
+  todoUrlBlocks.map((block) => {
+    blocksMdStrings.push(getCraftUrlBlockMdString(block, true))
+  })
+
+  craft.dataApi.updateBlocks(blocksToUpdate);
 
   return blocksMdStrings;
 }
 
 export async function getAndDeleteUncheckedTodoItemsFromCurrentPage() {
-  let todoBlocks: CraftTextBlock[] = [];
+  let todoTextBlocks: CraftTextBlock[] = [];
+  let todoUrlBlocks: CraftUrlBlock[] = [];
   let blocksMdStrings: string[] = [];
   let blocksToDelete: string[] = [];
 
@@ -188,8 +197,10 @@ export async function getAndDeleteUncheckedTodoItemsFromCurrentPage() {
     if (subBlock.listStyle.type == "todo") {
       if (subBlock.listStyle.state == "unchecked") {
         if (subBlock.type == "textBlock") {
-          todoBlocks.push(subBlock);
-          subBlock.listStyle.state = "canceled";
+          todoTextBlocks.push(subBlock);
+          blocksToDelete.push(subBlock.id)
+        } else if (subBlock.type == "urlBlock"){
+          todoUrlBlocks.push(subBlock);
           blocksToDelete.push(subBlock.id)
         }
       }
@@ -197,8 +208,11 @@ export async function getAndDeleteUncheckedTodoItemsFromCurrentPage() {
 
   })
 
-  todoBlocks.map((block) => {
+  todoTextBlocks.map((block) => {
     blocksMdStrings.push(getCraftTextBlockMdString(block))
+  })
+  todoUrlBlocks.map((block) => {
+    blocksMdStrings.push(getCraftUrlBlockMdString(block, true))
   })
 
   craft.dataApi.deleteBlocks(blocksToDelete);
@@ -211,14 +225,46 @@ export async function getAndDeleteUncheckedTodoItemsFromCurrentPage() {
 
 
 function getCraftTextBlockMdString(block: CraftTextBlock) {
-  const blockText = block.content.map((c) => c.text).join("");
-  const blockMdString = "[" + blockText + "](craftdocs://open?blockId=" + block.id + "&spaceId=" + block.spaceId + ")"
+  let blockTexts:string[] = [];
+  block.content.map((c) => {
+    if(c.link){
+      // determine which link
+      switch (c.link.type){
+        case "blockLink":
+          blockTexts.push("["+c.text+"]"+"("+createOpenCraftBlockUrl(c.link.blockId,c.link.spaceId)+")");
+          break;
+        case "dateLink":
+          blockTexts.push(createDateLink(c.link.date));
+          break;
+        case "formula":
+          // ignore formula, just use text
+          blockTexts.push(c.text)
+        break;
+        case "url":
+          blockTexts.push("["+c.text+"]"+"("+c.link.url+")")
+        break;
+      }
+    } else {
+      blockTexts.push(c.text);
+    }
+  })
+  const blockMdString = "[" + blockTexts.join("") + "](craftdocs://open?blockId=" + block.id + "&spaceId=" + block.spaceId + ")"
   return blockMdString;
 }
 
-function getCraftUrlBlockMdString(block: CraftUrlBlock) {
+function getCraftUrlBlockMdString(block: CraftUrlBlock, keepMarkdownUrlAsContent:boolean = false) {
   const blockText = "[" + block.title + "](" + block.url + ")";
-  const blockMdString = blockText;
-  //const blockMdString = "[" + blockText + "](craftdocs://open?blockId=" + block.id + "&spaceId=" + block.spaceId + ")"
-  return blockMdString;
+  if(keepMarkdownUrlAsContent){
+    return "[" + blockText + "](craftdocs://open?blockId=" + block.id + "&spaceId=" + block.spaceId + ")";
+  } else {
+    return blockText;
+  }
+}
+
+function createOpenCraftBlockUrl(blockId:string,spaceId:string){
+  return "craftdocs://open?blockId=" + blockId + "&spaceId="+spaceId
+}
+
+function createDateLink(date:string){
+  return "[" + date + "](day://" + date + ")"
 }
