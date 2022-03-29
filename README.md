@@ -18,7 +18,7 @@ If you want to have a look to other things I'm working, check out my website at 
 
 ## Installation
 
-You can simply download the `.craftx` file from the Assets of the latest Release [here](https://github.com/FlohGro-dev/Craftcuts/releases/tag/0.3.1) and add it to your eXtensions in Craft on macOS.
+You can simply download the `.craftx` file from the Assets of the latest Release [here](https://github.com/FlohGro-dev/Craftcuts/releases/tag/0.3.2) and add it to your eXtensions in Craft on macOS.
 
 If you want to built the eXtension by yourself (and e.g. make some custom modifications) use the instructions given by the people at Craft:
 
