@@ -99,6 +99,11 @@ I plan to add more features and configuration options to this eXtension in the f
 
 ## Changelog
 
+### v0.3.2 refinements for task moving feature
+
+- **new:** added support for tasks as URL blocks
+- **fixed:** loosing urls in task contents (now supporting urls, date links and block links)
+
 ### v0.3.1 option to delete open tasks in document
 
 - **new:** input option *delete and move tasks* - this will delete any open task in your current document and provide them as input to the shortcut

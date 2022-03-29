@@ -52,7 +52,7 @@ export async function getUncheckedTodoItemsFromCurrentPage() {
   return blocksMdStrings;
 }
 
-export async function getCheckedTodoItemsFromCurrentPage(){
+export async function getCheckedTodoItemsFromCurrentPage() {
   let doneBlocks: CraftTextBlock[] = [];
   let blocksMdStrings: string[] = [];
 
@@ -158,7 +158,7 @@ export async function getAndCancelUncheckedTodoItemsFromCurrentPage() {
           todoTextBlocks.push(subBlock);
           subBlock.listStyle.state = "canceled";
           blocksToUpdate.push(subBlock)
-        }else if (subBlock.type == "urlBlock"){
+        } else if (subBlock.type == "urlBlock") {
           todoUrlBlocks.push(subBlock);
           subBlock.listStyle.state = "canceled";
           blocksToUpdate.push(subBlock)
@@ -199,7 +199,7 @@ export async function getAndDeleteUncheckedTodoItemsFromCurrentPage() {
         if (subBlock.type == "textBlock") {
           todoTextBlocks.push(subBlock);
           blocksToDelete.push(subBlock.id)
-        } else if (subBlock.type == "urlBlock"){
+        } else if (subBlock.type == "urlBlock") {
           todoUrlBlocks.push(subBlock);
           blocksToDelete.push(subBlock.id)
         }
@@ -225,13 +225,13 @@ export async function getAndDeleteUncheckedTodoItemsFromCurrentPage() {
 
 
 function getCraftTextBlockMdString(block: CraftTextBlock) {
-  let blockTexts:string[] = [];
+  let blockTexts: string[] = [];
   block.content.map((c) => {
-    if(c.link){
+    if (c.link) {
       // determine which link
-      switch (c.link.type){
+      switch (c.link.type) {
         case "blockLink":
-          blockTexts.push("["+c.text+"]"+"("+createOpenCraftBlockUrl(c.link.blockId,c.link.spaceId)+")");
+          blockTexts.push("[" + c.text + "]" + "(" + createOpenCraftBlockUrl(c.link.blockId, c.link.spaceId) + ")");
           break;
         case "dateLink":
           blockTexts.push(createDateLink(c.link.date));
@@ -239,10 +239,10 @@ function getCraftTextBlockMdString(block: CraftTextBlock) {
         case "formula":
           // ignore formula, just use text
           blockTexts.push(c.text)
-        break;
+          break;
         case "url":
-          blockTexts.push("["+c.text+"]"+"("+c.link.url+")")
-        break;
+          blockTexts.push("[" + c.text + "]" + "(" + c.link.url + ")")
+          break;
       }
     } else {
       blockTexts.push(c.text);
@@ -252,19 +252,19 @@ function getCraftTextBlockMdString(block: CraftTextBlock) {
   return blockMdString;
 }
 
-function getCraftUrlBlockMdString(block: CraftUrlBlock, keepMarkdownUrlAsContent:boolean = false) {
+function getCraftUrlBlockMdString(block: CraftUrlBlock, keepMarkdownUrlAsContent: boolean = false) {
   const blockText = "[" + block.title + "](" + block.url + ")";
-  if(keepMarkdownUrlAsContent){
+  if (keepMarkdownUrlAsContent) {
     return "[" + blockText + "](craftdocs://open?blockId=" + block.id + "&spaceId=" + block.spaceId + ")";
   } else {
     return blockText;
   }
 }
 
-function createOpenCraftBlockUrl(blockId:string,spaceId:string){
-  return "craftdocs://open?blockId=" + blockId + "&spaceId="+spaceId
+function createOpenCraftBlockUrl(blockId: string, spaceId: string) {
+  return "craftdocs://open?blockId=" + blockId + "&spaceId=" + spaceId
 }
 
-function createDateLink(date:string){
+function createDateLink(date: string) {
   return "[" + date + "](day://" + date + ")"
 }
