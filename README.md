@@ -14,6 +14,8 @@ If this eXtension is valuable for and you like to thank me you can
 
 <a href="https://www.buymeacoffee.com/flohgro" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 220px !important;" ></a>
 
+<a href="https://www.patreon.com/bePatron?u=72105252" data-patreon-widget-type="become-patron-button">Become a Patron!</a><script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>
+
 If you want to have a look to other things I'm working, check out my website at [flohgro.com](https://flohgro.com).
 
 ## Installation
