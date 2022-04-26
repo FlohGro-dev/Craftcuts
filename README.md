@@ -103,6 +103,7 @@ I want to provide as many Craftcuts as possible in this repository in the table 
 | Craftcuts Import Calendar Events | import configurable events into the current document | [@FlohGro](https://twitter.com/FlohGro) | [Youtube Demo](https://www.youtube.com/watch?v=Fkmp0aNJxIo) |[Download](https://www.icloud.com/shortcuts/089f9a7061ca4fefa7a924a1f4b125fe)|
 | Craftcuts Import Current Weather Forecast | import current weather forecast into the current document | [@FlohGro](https://twitter.com/FlohGro) | [Youtube Demo](https://www.youtube.com/watch?v=Fkmp0aNJxIo) |[Download](https://www.icloud.com/shortcuts/c2994e27ae174cf087b6f971fcfc91ac)|
 | Craftcuts Tasks to Tomorrow | move tasks to tomorrows daily note | [@FlohGro](https://twitter.com/FlohGro) | You can use this shortcut to move tasks from the todays note to tomorrows note | [Download](https://www.icloud.com/shortcuts/a07520bdfe884246964532615361404b) |
+| Craftcuts Insert Next X Days Links | insert the date links to the next X days into the current document | [@FlohGro](https://twitter.com/FlohGro)  | [Youtube Demo](https://youtu.be/PY7JMhj5T_8)  | [Download](https://www.icloud.com/shortcuts/f321142bb8894325a5c739acc2e783fc) |
 
 I plan to add more features and configuration options to this eXtension in the future to pass more / different content to the triggered shortcuts. If you have ideas or use cases which are not yet supported just create a new issue in the repository or reach out to me on the platform of your choice: [contactme](https://flohgro.com/contactme/).
 
