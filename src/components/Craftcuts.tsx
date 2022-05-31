@@ -1,12 +1,13 @@
 import React from "react";
-import { Button } from "@chakra-ui/button";
-import { ExternalLinkIcon } from "@chakra-ui/icons";
-import { Stack } from "@chakra-ui/react";
+import { Button, ButtonGroup, IconButton } from "@chakra-ui/button";
+import { EditIcon, ExternalLinkIcon } from "@chakra-ui/icons";
+import { Stack, useToast } from "@chakra-ui/react";
 import { Craftcut, craftcutsObjects} from "../settingsUtils";
 import { getAllBlocksFromCurrentPage, getAllUrlsFromCurrentPage, getAndCancelUncheckedTodoItemsFromCurrentPage, getAndDeleteUncheckedTodoItemsFromCurrentPage, getCheckedTodoItemsFromCurrentPage, getSelectedBlocksAsMdStingsFromCurrentPage, getTitleOfCurrentPage, getUncheckedTodoItemsFromCurrentPage } from "../craftBlockInteractor";
 
 const Craftcuts: React.FC = () => {
   const [isLoading, setIsLoading] = React.useState(false);
+  const toast = useToast();
 
   const onRun = async (craftcut:Craftcut) => {
     setIsLoading(true);
@@ -162,11 +163,22 @@ const Craftcuts: React.FC = () => {
     setIsLoading(false);
   }
 
+  const onEdit = async (craftcut:Craftcut) => {
+    let foundObj = craftcutsObjects.filter(obj => obj == craftcut)
+    toast({
+      id: "addedToast",
+      position: "bottom",
+      duration: 2000,
+      title: foundObj[0].getDisplayName()
+    })
+  }
+
   return (
     <>
   <Stack spacing='2px' direction={['column']}>
   {
     craftcutsObjects.map((element) => (
+      <ButtonGroup isAttached>
       <Button
         key={element.getExactName()}
         rightIcon={<ExternalLinkIcon />}
@@ -177,6 +189,8 @@ const Craftcuts: React.FC = () => {
       >
         {element.getDisplayName()}
         </Button>
+        <IconButton aria-label='Edit Configuration' icon={<EditIcon/>} colorScheme='purple' onClick={() => onEdit(element)}/>
+      </ButtonGroup>
     ))
   }
 </Stack>
