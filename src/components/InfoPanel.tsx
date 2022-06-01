@@ -116,7 +116,7 @@ const InfoPanel: React.FC = () => {
                     () => CraftApiWrapper.openUrl(Defines.CRAFTCUTS_REPOSITORY_LINK)
                 }
                 >
-                    Craftist repository
+                    Craftcuts repository
                 </StyledLinkDiv>
                 {' '}
                 or reach out to me on
