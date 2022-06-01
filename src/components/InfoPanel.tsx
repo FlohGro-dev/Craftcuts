@@ -40,7 +40,7 @@ const StyledOverlayDiv = styled.div`
 `;
 
 const StyledLinkDiv = styled.a`
-  color: red;
+  color: purple;
   transition: filter 200ms ease-in;
   overflow-x: auto;
   cursor: pointer;
@@ -52,7 +52,7 @@ const StyledLinkDiv = styled.a`
 const StyledHeader = styled.div`
     padding-top: 15px;
     font-size: 15px;
-    color: red;
+    color: purple;
 `;
 
 
