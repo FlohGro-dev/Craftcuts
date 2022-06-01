@@ -1,8 +1,8 @@
 import * as React from "react"
 import * as ReactDOM from 'react-dom'
 import * as Recoil from "recoil";
-import { AddShortcutManueButton, Craftcuts, RemoveShortcutButton } from "./components";
-import { ChakraProvider, ThemeConfig, Badge, Center } from "@chakra-ui/react";
+import { AddShortcutManueButton, Craftcuts, InfoPanel, RemoveShortcutButton } from "./components";
+import { ChakraProvider, ThemeConfig, Badge, Center, Tabs, Tab, TabList, TabPanel, TabPanels } from "@chakra-ui/react";
 import { Container, Box, Flex } from "@chakra-ui/layout";
 import { extendTheme } from "@chakra-ui/react";
 import { Skeleton } from "@chakra-ui/skeleton";
@@ -55,7 +55,14 @@ const Content: React.FC = () => {
       >
         Craftcuts
       </Flex>
-      <Badge>Add / Remove</Badge>
+      <Tabs w='100%' isLazy isFitted size='md' variant='solid-rounded' colorScheme='purple'>
+        <TabList>
+          <Tab borderRadius='5px'>Shortcuts</Tab>
+          <Tab borderRadius='5px'>Info</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+          <Badge>Add / Remove</Badge>
       <AddShortcutManueButton />
       <Center height='5px'>
       </Center>
@@ -64,6 +71,12 @@ const Content: React.FC = () => {
       </Center>
       <Badge>Run</Badge>
       <Craftcuts />
+          </TabPanel>
+          <TabPanel>
+            <InfoPanel />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </Box>
   );
 };
