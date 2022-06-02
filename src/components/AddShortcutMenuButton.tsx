@@ -55,7 +55,7 @@ const AddShortcutMenuButton: React.FC = () => {
       inputSettings.push(inputOpenTasks)
     }
 
-    if (inputDoneTasks != ""){
+    if (inputDoneTasks != "") {
       inputSettings.push(inputDoneTasks)
     }
 
@@ -73,22 +73,22 @@ const AddShortcutMenuButton: React.FC = () => {
 
     // advanced inputs
 
-    if(inputCancelAndMoveTasks != ""){
-      if(inputSettings.length > 1){
+    if (inputCancelAndMoveTasks != "") {
+      inputSettings.push(inputCancelAndMoveTasks)
+      if (inputSettings.length > 1) {
         // invlalidate the configuration - currently just supported as single import
         isValid = false;
         errorString = "not supported with several inputs"
       }
-      inputSettings.push(inputCancelAndMoveTasks)
     }
 
-    if(inputDeleteAndMoveTasks != ""){
-      if(inputSettings.length > 1){
+    if (inputDeleteAndMoveTasks != "") {
+      inputSettings.push(inputDeleteAndMoveTasks)
+      if (inputSettings.length > 1) {
         // invlalidate the configuration - currently just supported as single import
         isValid = false;
         errorString = "not supported with several inputs"
       }
-      inputSettings.push(inputDeleteAndMoveTasks)
     }
 
 
@@ -119,7 +119,7 @@ const AddShortcutMenuButton: React.FC = () => {
         duration: 2000,
         render: () => (
           <Center>
-            <Box color='white' w='80%' borderRadius='lg' p={3} bg='red.500'>
+            <Box color='white' w='90%' borderRadius='lg' p={3} bg='red.500'>
               {errorString}
             </Box>
           </Center>
@@ -140,8 +140,8 @@ const AddShortcutMenuButton: React.FC = () => {
         duration: 2000,
         render: () => (
           <Center>
-            <Box color='white' w='80%' borderRadius='lg' p={3} bg='blue.500'>
-              Added Shortcut: {exactName}
+            <Box color='white' w='90%' borderRadius='lg' p={3} bg='blue.500'>
+              Added Shortcut: {displayName}
             </Box>
           </Center>
         ),
@@ -151,6 +151,7 @@ const AddShortcutMenuButton: React.FC = () => {
       setDisplayName("");
       setInputSeparator("");
       updateShortcutsData();
+      handleClose();
     }
 
     setIsLoadingSet(false);
@@ -193,7 +194,7 @@ const AddShortcutMenuButton: React.FC = () => {
               </FormControl>
               <FormControl>
                 <CheckboxGroup colorScheme='purple' defaultValue={[""]}> Shortcut Input
-              <FormHelperText>Select the input which shall be provided to the Shortcut (all with links to the original block(s))</FormHelperText>
+                  <FormHelperText>Select the input which shall be provided to the Shortcut (all with links to the original block(s))</FormHelperText>
                   <Stack spacing={[1, 5]} direction={['column', 'row']}>
                     <Checkbox value='pageTitle' onChange={(e) => setInputPageTitle(e.target.checked ? "pageTitle" : "")}>page title</Checkbox>
                     <Checkbox value='selection' onChange={(e) => setInputSelection(e.target.checked ? "selection" : "")}>selected blocks</Checkbox>
@@ -204,7 +205,7 @@ const AddShortcutMenuButton: React.FC = () => {
                   </Stack>
                 </CheckboxGroup>
                 <CheckboxGroup colorScheme='purple' defaultValue={[""]}> Input with block modifications
-              <FormHelperText>These inputs will modify blocks in your document</FormHelperText>
+                  <FormHelperText>These inputs will modify blocks in your document</FormHelperText>
                   <Stack spacing={[1, 5]} direction={['column', 'row']}>
                     <Checkbox value='cancelAndMoveTasks' onChange={(e) => setInputCancelAndMoveTasks(e.target.checked ? "cancelAndMoveTasks" : "")}>cancel and move tasks</Checkbox>
                     <Checkbox value='deleteAndMoveTasks' onChange={(e) => setInputDeleteAndMoveTasks(e.target.checked ? "deleteAndMoveTasks" : "")}>delete and move tasks</Checkbox>

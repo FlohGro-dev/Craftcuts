@@ -1,13 +1,13 @@
 import React from "react";
 import { Button, ButtonGroup, IconButton } from "@chakra-ui/button";
 import { EditIcon, ExternalLinkIcon } from "@chakra-ui/icons";
-import { Checkbox, CheckboxGroup, FormControl, FormHelperText, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, useToast } from "@chakra-ui/react";
-import { Craftcut, craftcutsObjects, updateShortcutsData} from "../settingsUtils";
+import { Box, Center, Checkbox, CheckboxGroup, FormControl, FormHelperText, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, useToast } from "@chakra-ui/react";
+import { Craftcut, craftcutsObjects, updateShortcutsData } from "../settingsUtils";
 import { getAllBlocksFromCurrentPage, getAllUrlsFromCurrentPage, getAndCancelUncheckedTodoItemsFromCurrentPage, getAndDeleteUncheckedTodoItemsFromCurrentPage, getCheckedTodoItemsFromCurrentPage, getSelectedBlocksAsMdStingsFromCurrentPage, getTitleOfCurrentPage, getUncheckedTodoItemsFromCurrentPage } from "../craftBlockInteractor";
 
 const Craftcuts: React.FC = () => {
   const [isLoading, setIsLoading] = React.useState(false);
-  
+
   const [isLoadingEdit, setIsLoadingEdit] = React.useState(false);
   const [exactName, setExactName] = React.useState("");
   const [displayName, setDisplayName] = React.useState("");
@@ -22,56 +22,44 @@ const Craftcuts: React.FC = () => {
   const [inputCancelAndMoveTasks, setInputCancelAndMoveTasks] = React.useState("");
   const [inputDeleteAndMoveTasks, setInputDeleteAndMoveTasks] = React.useState("");
 
-
-  const [inputPageTitleChecked, setInputPageTitleChecked] = React.useState(false);
-  const [inputSelectionChecked, setInputSelectionChecked] = React.useState(false);
-  const [inputOpenTasksChecked, setInputOpenTasksChecked] = React.useState(false);
-  const [inputDoneTasksChecked, setInputDoneTasksChecked] = React.useState(false);
-  const [inputAllUrlsChecked, setInputAllUrlsChecked] = React.useState(false);
-  const [inputAllBlocksChecked, setInputAllBlocksChecked] = React.useState(false);
-  const [inputCancelAndMoveTasksChecked, setInputCancelAndMoveTasksChecked] = React.useState(false);
-  const [inputDeleteAndMoveTasksChecked, setInputDeleteAndMoveTasksChecked] = React.useState(false);
-  
-  
   const [inputVals, setInputVals] = React.useState([""]);
 
   const toast = useToast();
-  let scToEdit:Craftcut;
+
+  const [scToEditIdentifier, setScToEditIdentifier] = React.useState("");
+
   const [show, setShow] = React.useState(false);
-  const handleShowEdit = (craftcut:Craftcut) => {
-    scToEdit = craftcut;
+  const handleShowEdit = (craftcut: Craftcut) => {
+    setScToEditIdentifier(craftcut.getExactName() + craftcut.getDisplayName() + craftcut.getInputSettings().join(","));
     setExactName(craftcut.getExactName());
     setDisplayName(craftcut.getDisplayName());
     setInputSeparator(craftcut.getInputSeparator());
-    //scToEdit.getInputSettings()
-    //scToEdit.getInputSettings()
     let inputSettings = craftcut.getInputSettings();
     setInputVals(inputSettings)
-    
-if(inputSettings.includes("pageTitle")){
-  setInputPageTitleChecked(true);
-}
-if(inputSettings.includes("selection")){
-  setInputSelectionChecked(true);
-}
-if(inputSettings.includes("openTasks")){
-  setInputOpenTasksChecked(true);
-}
-if(inputSettings.includes("doneTasks")){
-  setInputDoneTasksChecked(true);
-}
-if(inputSettings.includes("allUrls")){
-  setInputAllUrlsChecked(true);
-}
-if(inputSettings.includes("allBlocks")){
-  setInputAllBlocksChecked(true);
-}
-if(inputSettings.includes("cancelAndMoveTasks")){
-  setInputCancelAndMoveTasksChecked(true);
-}
-if(inputSettings.includes("deleteAndMoveTasks")){
-  setInputDeleteAndMoveTasksChecked(true);
-}
+    if (inputSettings.includes("pageTitle")) {
+      setInputPageTitle("pageTitle")
+    }
+    if (inputSettings.includes("selection")) {
+      setInputSelection("selection")
+    }
+    if (inputSettings.includes("openTasks")) {
+      setInputOpenTasks("openTasks")
+    }
+    if (inputSettings.includes("doneTasks")) {
+      setInputDoneTasks("doneTasks")
+    }
+    if (inputSettings.includes("allUrls")) {
+      setInputAllUrls("allUrls")
+    }
+    if (inputSettings.includes("allBlocks")) {
+      setInputAllBlocks("allBlocks")
+    }
+    if (inputSettings.includes("cancelAndMoveTasks")) {
+      setInputCancelAndMoveTasks("cancelAndMoveTasks")
+    }
+    if (inputSettings.includes("deleteAndMoveTasks")) {
+      setInputDeleteAndMoveTasks("deleteAndMoveTasks")
+    }
     setShow(true)
   };
   const handleClose = () => {
@@ -88,15 +76,15 @@ if(inputSettings.includes("deleteAndMoveTasks")){
 
 
 
-  const onRun = async (craftcut:Craftcut) => {
+  const onRun = async (craftcut: Craftcut) => {
     setIsLoading(true);
-    let shortcutInputBlocks:string[] = [];
+    let shortcutInputBlocks: string[] = [];
     let openUrlOnSuccess = true;
 
     // decide on input
     const inputSettings = craftcut.getInputSettings()
     let separatorNeeded = false;
-    if(inputSettings.length > 1){
+    if (inputSettings.length > 1) {
       separatorNeeded = true;
     }
 
@@ -104,117 +92,117 @@ if(inputSettings.includes("deleteAndMoveTasks")){
 
     // title
 
-    if(inputSettings.includes("pageTitle")){
+    if (inputSettings.includes("pageTitle")) {
       let block = await getTitleOfCurrentPage()
       shortcutInputBlocks.push(block);
-      if(separatorNeeded){
-          shortcutInputBlocks.push(craftcut.getInputSeparator())
+      if (separatorNeeded) {
+        shortcutInputBlocks.push(craftcut.getInputSeparator())
       }
     }
 
 
     // selection
-    if(inputSettings.includes("selection")){
+    if (inputSettings.includes("selection")) {
       let selectedBlocks = await getSelectedBlocksAsMdStingsFromCurrentPage()
-      if(selectedBlocks){
+      if (selectedBlocks) {
         shortcutInputBlocks = shortcutInputBlocks.concat(selectedBlocks)
       }
-      if(separatorNeeded){
-          shortcutInputBlocks.push(craftcut.getInputSeparator())
+      if (separatorNeeded) {
+        shortcutInputBlocks.push(craftcut.getInputSeparator())
       }
     }
 
     //openTasks
 
-    if(inputSettings.includes("openTasks")){
+    if (inputSettings.includes("openTasks")) {
       let blocks = await getUncheckedTodoItemsFromCurrentPage()
-      if(blocks){
+      if (blocks) {
         shortcutInputBlocks = shortcutInputBlocks.concat(blocks)
       }
-      if(separatorNeeded){
-          shortcutInputBlocks.push(craftcut.getInputSeparator())
+      if (separatorNeeded) {
+        shortcutInputBlocks.push(craftcut.getInputSeparator())
       }
     }
 
     //doneTasks
 
-    if(inputSettings.includes("doneTasks")){
+    if (inputSettings.includes("doneTasks")) {
       let blocks = await getCheckedTodoItemsFromCurrentPage()
-      if(blocks){
+      if (blocks) {
         shortcutInputBlocks = shortcutInputBlocks.concat(blocks)
       }
-      if(separatorNeeded){
-          shortcutInputBlocks.push(craftcut.getInputSeparator())
+      if (separatorNeeded) {
+        shortcutInputBlocks.push(craftcut.getInputSeparator())
       }
     }
 
 
     //all Urls
-    if(inputSettings.includes("allUrls")){
+    if (inputSettings.includes("allUrls")) {
       let blocks = await getAllUrlsFromCurrentPage()
-      if(blocks){
+      if (blocks) {
         shortcutInputBlocks = shortcutInputBlocks.concat(blocks)
       }
-      if(separatorNeeded){
-          shortcutInputBlocks.push(craftcut.getInputSeparator())
+      if (separatorNeeded) {
+        shortcutInputBlocks.push(craftcut.getInputSeparator())
       }
       //prevent open url if this is enabled
       openUrlOnSuccess = false;
     }
 
     //allBlocks
-    if(inputSettings.includes("allBlocks")){
+    if (inputSettings.includes("allBlocks")) {
       let blocks = await getAllBlocksFromCurrentPage()
-      if(blocks){
+      if (blocks) {
         shortcutInputBlocks = shortcutInputBlocks.concat(blocks)
       }
-      if(separatorNeeded){
-          shortcutInputBlocks.push(craftcut.getInputSeparator())
+      if (separatorNeeded) {
+        shortcutInputBlocks.push(craftcut.getInputSeparator())
       }
 
       // reenable open url if it is disabled
-      if(!openUrlOnSuccess){
+      if (!openUrlOnSuccess) {
         openUrlOnSuccess = true;
       }
     }
 
     // cancelAndMoveTasks
-    if(inputSettings.includes("cancelAndMoveTasks")){
+    if (inputSettings.includes("cancelAndMoveTasks")) {
 
       let blocks = await getAndCancelUncheckedTodoItemsFromCurrentPage()
-      if(blocks){
+      if (blocks) {
         shortcutInputBlocks = shortcutInputBlocks.concat(blocks)
       }
-      if(separatorNeeded){
-          shortcutInputBlocks.push(craftcut.getInputSeparator())
+      if (separatorNeeded) {
+        shortcutInputBlocks.push(craftcut.getInputSeparator())
       }
 
       // reenable open url if it is disabled
-      if(!openUrlOnSuccess){
+      if (!openUrlOnSuccess) {
         openUrlOnSuccess = true;
       }
     }
 
     // cancelAndMoveTasks
-    if(inputSettings.includes("deleteAndMoveTasks")){
+    if (inputSettings.includes("deleteAndMoveTasks")) {
 
       let blocks = await getAndDeleteUncheckedTodoItemsFromCurrentPage()
-      if(blocks){
+      if (blocks) {
         shortcutInputBlocks = shortcutInputBlocks.concat(blocks)
       }
-      if(separatorNeeded){
-          shortcutInputBlocks.push(craftcut.getInputSeparator())
+      if (separatorNeeded) {
+        shortcutInputBlocks.push(craftcut.getInputSeparator())
       }
 
       // reenable open url if it is disabled
-      if(!openUrlOnSuccess){
+      if (!openUrlOnSuccess) {
         openUrlOnSuccess = true;
       }
     }
 
     // remove last separator if it was included
-    if(separatorNeeded){
-        shortcutInputBlocks.pop();
+    if (separatorNeeded) {
+      shortcutInputBlocks.pop();
     }
 
     const combinedBlocks = shortcutInputBlocks.join("\n");
@@ -224,10 +212,10 @@ if(inputSettings.includes("deleteAndMoveTasks")){
     // now assemble the url
     let xCallbackUrl = "shortcuts://x-callback-url/run-shortcut?name=" + encodeURIComponent(craftcut.getExactName());
 
-    if (shortcutInputBlocks.length > 0){
+    if (shortcutInputBlocks.length > 0) {
       xCallbackUrl = xCallbackUrl + "&input=text&text=" + input;
 
-      if(openUrlOnSuccess){
+      if (openUrlOnSuccess) {
         let callbackBlock = shortcutInputBlocks[0];
         const regex = /\[(.*)\]\((.*)\)/;
         const subst = `$2`;
@@ -244,13 +232,7 @@ if(inputSettings.includes("deleteAndMoveTasks")){
 
   const onEdit = async () => {
 
-    let foundObj = craftcutsObjects.filter(obj => obj == scToEdit)
-    toast({
-      id: "addedToast",
-      position: "bottom",
-      duration: 2000,
-      title: "edit:" + foundObj[0].getDisplayName()
-    })
+    let foundObj = craftcutsObjects.filter((obj) => obj.getExactName() + obj.getDisplayName() + obj.getInputSettings().join(",") == scToEditIdentifier)
 
     setIsLoadingEdit(true);
     let inputSettings: string[] = [];
@@ -268,7 +250,7 @@ if(inputSettings.includes("deleteAndMoveTasks")){
       inputSettings.push(inputOpenTasks)
     }
 
-    if (inputDoneTasks != ""){
+    if (inputDoneTasks != "") {
       inputSettings.push(inputDoneTasks)
     }
 
@@ -286,22 +268,22 @@ if(inputSettings.includes("deleteAndMoveTasks")){
 
     // advanced inputs
 
-    if(inputCancelAndMoveTasks != ""){
-      if(inputSettings.length > 1){
+    if (inputCancelAndMoveTasks != "") {
+      inputSettings.push(inputCancelAndMoveTasks)
+      if (inputSettings.length > 1) {
         // invlalidate the configuration - currently just supported as single import
         isValid = false;
         errorString = "not supported with several inputs"
       }
-      inputSettings.push(inputCancelAndMoveTasks)
     }
 
-    if(inputDeleteAndMoveTasks != ""){
-      if(inputSettings.length > 1){
+    if (inputDeleteAndMoveTasks != "") {
+      inputSettings.push(inputDeleteAndMoveTasks)
+      if (inputSettings.length > 1) {
         // invlalidate the configuration - currently just supported as single import
         isValid = false;
         errorString = "not supported with several inputs"
       }
-      inputSettings.push(inputDeleteAndMoveTasks)
     }
 
 
@@ -327,10 +309,16 @@ if(inputSettings.includes("deleteAndMoveTasks")){
     if (!isValid) {
       // a separator is needed -> abort the creation
       toast({
-        id: "addedToast",
+        id: "editedToast",
         position: "bottom",
         duration: 2000,
-        title: "not edited"
+        render: () => (
+          <Center>
+            <Box color='white' w='90%' borderRadius='lg' p={3} bg='red.500'>
+              {errorString}
+            </Box>
+          </Center>
+        ),
       })
 
     } else {
@@ -338,23 +326,39 @@ if(inputSettings.includes("deleteAndMoveTasks")){
       let craftcut = Craftcut.fromJSON(JSON.parse(data));
 
       //craftcutsSet.add(craftcut)
-      craftcutsObjects.push(craftcut)
+
+      const index: number = craftcutsObjects.indexOf(foundObj[0]);
+
+      if (index !== -1) {
+        craftcutsObjects[index] = craftcut;
+      }
+
+
+      //craftcutsObjects.push(craftcut)
 
 
       toast({
-        id: "addedToast",
+        id: "editedToast",
         position: "bottom",
         duration: 2000,
-        title: "edited"
+        render: () => (
+          <Center>
+            <Box color='white' w='90%' borderRadius='lg' p={3} bg='blue.500'>
+              Edited Shortcut: {displayName}
+            </Box>
+          </Center>
+        ),
       })
       // reset input fields
       setExactName("");
       setDisplayName("");
       setInputSeparator("");
       updateShortcutsData();
+      handleClose();
     }
 
     setIsLoadingEdit(false);
+
 
 
 
@@ -363,26 +367,26 @@ if(inputSettings.includes("deleteAndMoveTasks")){
 
   return (
     <>
-  <Stack spacing='2px' direction={['column']}>
-  {
-    craftcutsObjects.map((element) => (
-      <ButtonGroup isAttached>
-      <Button
-        key={element.getExactName()}
-        rightIcon={<ExternalLinkIcon />}
-        colorScheme='purple'
-        onClick={() => onRun(element)}
-        width="100%"
-        isLoading={isLoading}
-      >
-        {element.getDisplayName()}
-        </Button>
-        <IconButton aria-label='Edit Configuration' icon={<EditIcon/>} colorScheme='purple' isLoading={isLoadingEdit} onClick={() => handleShowEdit(element)}/>
-      </ButtonGroup>
-    ))
-  }
-</Stack>
-<Modal
+      <Stack spacing='2px' direction={['column']}>
+        {
+          craftcutsObjects.map((element) => (
+            <ButtonGroup isAttached>
+              <Button
+                key={element.getExactName()}
+                rightIcon={<ExternalLinkIcon />}
+                colorScheme='purple'
+                onClick={() => onRun(element)}
+                width="100%"
+                isLoading={isLoading}
+              >
+                {element.getDisplayName()}
+              </Button>
+              <IconButton aria-label='Edit Configuration' icon={<EditIcon />} colorScheme='purple' isLoading={isLoadingEdit} onClick={() => handleShowEdit(element)} />
+            </ButtonGroup>
+          ))
+        }
+      </Stack>
+      <Modal
         isOpen={show}
         onClose={handleClose}
       >
@@ -410,18 +414,18 @@ if(inputSettings.includes("deleteAndMoveTasks")){
               </FormControl>
               <FormControl>
                 <CheckboxGroup colorScheme='purple' defaultValue={inputVals}> Shortcut Input
-              <FormHelperText>Select the input which shall be provided to the Shortcut (all with links to the original block(s))</FormHelperText>
+                  <FormHelperText>Select the input which shall be provided to the Shortcut (all with links to the original block(s))</FormHelperText>
                   <Stack spacing={[1, 5]} direction={['column', 'row']}>
                     <Checkbox value='pageTitle' onChange={(e) => setInputPageTitle(e.target.checked ? "pageTitle" : "")}>page title</Checkbox>
-                    <Checkbox value='selection'  onChange={(e) => setInputSelection(e.target.checked ? "selection" : "")}>selected blocks</Checkbox>
-                    <Checkbox value='openTasks'  onChange={(e) => setInputOpenTasks(e.target.checked ? "openTasks" : "")}>open tasks</Checkbox>
-                    <Checkbox value='doneTasks'  onChange={(e) => setInputDoneTasks(e.target.checked ? "doneTasks" : "")}>done tasks</Checkbox>
-                    <Checkbox value='allUrls'  onChange={(e) => setInputAllUrls(e.target.checked ? "allUrls" : "")}>url blocks</Checkbox>
+                    <Checkbox value='selection' onChange={(e) => setInputSelection(e.target.checked ? "selection" : "")}>selected blocks</Checkbox>
+                    <Checkbox value='openTasks' onChange={(e) => setInputOpenTasks(e.target.checked ? "openTasks" : "")}>open tasks</Checkbox>
+                    <Checkbox value='doneTasks' onChange={(e) => setInputDoneTasks(e.target.checked ? "doneTasks" : "")}>done tasks</Checkbox>
+                    <Checkbox value='allUrls' onChange={(e) => setInputAllUrls(e.target.checked ? "allUrls" : "")}>url blocks</Checkbox>
                     <Checkbox value='allBlocks' onChange={(e) => setInputAllBlocks(e.target.checked ? "allBlocks" : "")}>all blocks</Checkbox>
                   </Stack>
                 </CheckboxGroup>
                 <CheckboxGroup colorScheme='purple' defaultValue={inputVals}> Input with block modifications
-              <FormHelperText>These inputs will modify blocks in your document</FormHelperText>
+                  <FormHelperText>These inputs will modify blocks in your document</FormHelperText>
                   <Stack spacing={[1, 5]} direction={['column', 'row']}>
                     <Checkbox value='cancelAndMoveTasks' onChange={(e) => setInputCancelAndMoveTasks(e.target.checked ? "cancelAndMoveTasks" : "")}>cancel and move tasks</Checkbox>
                     <Checkbox value='deleteAndMoveTasks' onChange={(e) => setInputDeleteAndMoveTasks(e.target.checked ? "deleteAndMoveTasks" : "")}>delete and move tasks</Checkbox>
@@ -440,13 +444,13 @@ if(inputSettings.includes("deleteAndMoveTasks")){
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='green' mr={3} onClick={onEdit} isLoading={isLoadingEdit}>
-              Add Shortcut
+              Apply Changes
             </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
-  </>
-)
+    </>
+  )
 }
 
 export default Craftcuts;
