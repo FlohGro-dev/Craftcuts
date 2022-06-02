@@ -16,6 +16,9 @@
     ],
     "typeRoots": [
       "./node_modules/@craftdocs/craft-extension-api"
+    ],
+    "types": [
+      "node"
     ]
   },
   "exclude": ["node_modules"]

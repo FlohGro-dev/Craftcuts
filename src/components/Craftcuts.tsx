@@ -5,6 +5,7 @@ import { Stack } from "@chakra-ui/react";
 import { Craftcut, craftcutsObjects} from "../settingsUtils";
 import { getAllBlocksFromCurrentPage, getAllUrlsFromCurrentPage, getAndCancelUncheckedTodoItemsFromCurrentPage, getAndDeleteUncheckedTodoItemsFromCurrentPage, getCheckedTodoItemsFromCurrentPage, getSelectedBlocksAsMdStingsFromCurrentPage, getTitleOfCurrentPage, getUncheckedTodoItemsFromCurrentPage } from "../craftBlockInteractor";
 
+
 const Craftcuts: React.FC = () => {
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -158,7 +159,34 @@ const Craftcuts: React.FC = () => {
         xCallbackUrl = xCallbackUrl + "&x-success=" + callbackBlock
       }
     }
-    craft.editorApi.openURL(xCallbackUrl);
+
+    let tempFilePath = require("path").join(
+      require("os").tmpdir(),
+      "craftcuts-shortcut-input"
+    );
+    let escapedShortcutName =
+      craftcut.getExactName().replace(
+        /["\\]/g,
+        "\\$&"
+      );
+    let fs = require("fs");
+    fs.writeFile(
+      tempFilePath,
+      combinedBlocks,
+      () => {
+        require("child_process").exec(
+          `shortcuts run "${escapedShortcutName}" -i ${tempFilePath}`,
+          async () => {
+            fs.unlink(
+              tempFilePath,
+              () => {}
+            );
+          }
+        );
+      }
+      )
+
+    //craft.editorApi.openURL(xCallbackUrl);
     setIsLoading(false);
   }
 

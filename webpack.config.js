@@ -19,7 +19,8 @@ module.exports = (env, argv) => {
       publicPath: "/"
     },
     resolve: {
-      extensions: ['.tsx', '.ts', '.jsx', '.js', '.json']
+      extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
+      //in here?
     },
     module: {
       rules: [
