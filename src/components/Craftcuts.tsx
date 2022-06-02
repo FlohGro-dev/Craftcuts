@@ -368,13 +368,13 @@ const Craftcuts: React.FC = () => {
     let toastText = "moved up"
     // we need to decrease the index
     let newIndex = curIndex - 1;
-    if(newIndex >= 0){
-      craftcutsObjects.splice(newIndex, 0, craftcutsObjects.splice(curIndex,1)[0])
+    if (newIndex >= 0) {
+      craftcutsObjects.splice(newIndex, 0, craftcutsObjects.splice(curIndex, 1)[0])
       updateShortcutsData();
     } else {
       toastText = "already on top"
     }
-    
+
     toast({
       id: "editedToast",
       position: "bottom",
@@ -387,18 +387,6 @@ const Craftcuts: React.FC = () => {
         </Center>
       ),
     })
-
-
-  //   function array_move(arr, old_index, new_index) {
-  //     if (new_index >= arr.length) {
-  //         var k = new_index - arr.length + 1;
-  //         while (k--) {
-  //             arr.push(undefined);
-  //         }
-  //     }
-  //     arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
-  //     return arr; // for testing
-  // };
   }
 
   const onMoveDown = () => {
@@ -407,13 +395,13 @@ const Craftcuts: React.FC = () => {
     let toastText = "moved down"
     // we need to decrease the index
     let newIndex = curIndex + 1;
-    if(newIndex < craftcutsObjects.length){
-      craftcutsObjects.splice(newIndex, 0, craftcutsObjects.splice(curIndex,1)[0])
+    if (newIndex < craftcutsObjects.length) {
+      craftcutsObjects.splice(newIndex, 0, craftcutsObjects.splice(curIndex, 1)[0])
       updateShortcutsData();
     } else {
       toastText = "already on bottom"
     }
-    
+
     toast({
       id: "editedToast",
       position: "bottom",
@@ -421,24 +409,11 @@ const Craftcuts: React.FC = () => {
       render: () => (
         <Center>
           <Box color='white' w='90%' borderRadius='lg' p={3} bg='blue.500'>
-          {toastText}
+            {toastText}
           </Box>
         </Center>
       ),
     })
-
-
-
-  //   function array_move(arr, old_index, new_index) {
-  //     if (new_index >= arr.length) {
-  //         var k = new_index - arr.length + 1;
-  //         while (k--) {
-  //             arr.push(undefined);
-  //         }
-  //     }
-  //     arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
-  //     return arr; // for testing
-  // };
   }
 
   return (
@@ -447,20 +422,20 @@ const Craftcuts: React.FC = () => {
         {
           craftcutsObjects
             .map((element) => (
-            <ButtonGroup isAttached>
-              <Button
-                key={element.getExactName()}
-                rightIcon={<ExternalLinkIcon />}
-                colorScheme='purple'
-                onClick={() => onRun(element)}
-                width="100%"
-                isLoading={isLoading}
-              >
-                {element.getDisplayName()}
-              </Button>
-              <IconButton aria-label='Edit Configuration' icon={<EditIcon />} colorScheme='purple' isLoading={isLoadingEdit} onClick={() => handleShowEdit(element)} />
-            </ButtonGroup>
-          ))
+              <ButtonGroup isAttached>
+                <Button
+                  key={element.getExactName()}
+                  rightIcon={<ExternalLinkIcon />}
+                  colorScheme='purple'
+                  onClick={() => onRun(element)}
+                  width="100%"
+                  isLoading={isLoading}
+                >
+                  {element.getDisplayName()}
+                </Button>
+                <IconButton aria-label='Edit Configuration' icon={<EditIcon />} colorScheme='purple' isLoading={isLoadingEdit} onClick={() => handleShowEdit(element)} />
+              </ButtonGroup>
+            ))
         }
       </Stack>
       <Modal
@@ -520,7 +495,7 @@ const Craftcuts: React.FC = () => {
             </Stack>
           </ModalBody>
           <ModalFooter>
-          <Button colorScheme='purple' leftIcon={<ChevronUpIcon />} mr={2} onClick={onMoveUp}>
+            <Button colorScheme='purple' leftIcon={<ChevronUpIcon />} mr={2} onClick={onMoveUp}>
               Move Up
             </Button>
             <Button colorScheme='purple' leftIcon={<ChevronDownIcon />} mr={5} onClick={onMoveDown}>
