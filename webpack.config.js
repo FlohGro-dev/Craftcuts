@@ -20,7 +20,10 @@ module.exports = (env, argv) => {
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
-      //in here?
+      // fallback: {
+      //   "os": require.resolve("os-browserify/browser"),
+      //   "path": require.resolve("path-browserify")
+      // },
     },
     module: {
       rules: [
@@ -72,6 +75,10 @@ module.exports = (env, argv) => {
           'icon.png'
         ]
       })
-    ].filter(Boolean)
+    ].filter(Boolean),
+    target: 'node',
+    externals: [
+      'child_process'
+    ]   
   }
 }

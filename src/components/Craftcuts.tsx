@@ -159,34 +159,35 @@ const Craftcuts: React.FC = () => {
         xCallbackUrl = xCallbackUrl + "&x-success=" + callbackBlock
       }
     }
+    require("child_process").exec("shortcuts run " + craftcut.getExactName())
 
-    let tempFilePath = require("path").join(
-      require("os").tmpdir(),
-      "craftcuts-shortcut-input"
-    );
-    let escapedShortcutName =
-      craftcut.getExactName().replace(
-        /["\\]/g,
-        "\\$&"
-      );
-    let fs = require("fs");
-    fs.writeFile(
-      tempFilePath,
-      combinedBlocks,
-      () => {
-        require("child_process").exec(
-          `shortcuts run "${escapedShortcutName}" -i ${tempFilePath}`,
-          async () => {
-            fs.unlink(
-              tempFilePath,
-              () => {}
-            );
-          }
-        );
-      }
-      )
+    // let tempFilePath = require("path").join(
+    //   require("os").tmpdir(),
+    //   "craftcuts-shortcut-input"
+    // );
+    // let escapedShortcutName =
+    //   craftcut.getExactName().replace(
+    //     /["\\]/g,
+    //     "\\$&"
+    //   );
+    // let fs = require("fs");
+    // fs.writeFile(
+    //   tempFilePath,
+    //   combinedBlocks,
+    //   () => {
+    //     require("child_process").exec(
+    //       `shortcuts run "${escapedShortcutName}" -i ${tempFilePath}`,
+    //       async () => {
+    //         fs.unlink(
+    //           tempFilePath,
+    //           () => {}
+    //         );
+    //       }
+    //     );
+    //   }
+    //   )
 
-    //craft.editorApi.openURL(xCallbackUrl);
+    craft.editorApi.openURL(xCallbackUrl);
     setIsLoading(false);
   }
 
