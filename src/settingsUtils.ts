@@ -40,7 +40,7 @@ export class Craftcut {
     private exactName: string,
     private displayName: string,
     private inputSettings: string[],
-    private inputSeparator: string
+    private inputSeparator: string,
   ){}
 
   getExactName(): string {
@@ -82,5 +82,5 @@ export class Craftcut {
 }
 
 
-export let craftcutsSet = new Set<Craftcut>();
+// export let craftcutsSet = new Set<Craftcut>();
 export let craftcutsObjects:Craftcut[] = [];
