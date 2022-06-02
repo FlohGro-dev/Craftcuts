@@ -23,7 +23,7 @@ If you want to have a look to other things I'm working, check out my website at 
 1. Enable Craft eXtensions.
     - Mac: At the top left of the app, click your avatar, select Preferences, click 'Advanced'. Under Craft eXtensions, click the dropdown, and select 'Enabled'.
     - Web: At the top left of the web app, click your avatar, select Craft eXtensions, toggle 'Craft eXtensions' on.
-2. Download the `.craftx` file from the latest [release](https://github.com/FlohGro-dev/Craftcuts/releases/tag/0.3.2)
+2. Download the `.craftx` file from the latest [release](https://github.com/FlohGro-dev/Craftcuts/releases/tag/0.4)
 3. Install the extension.
     - At the bottom of the right side bar, the eXtensions logo is now visible. Click the '+' sign, select the file you downloaded from the previous step, then click open.
 4. Done - you can now use the eXtension
@@ -78,11 +78,13 @@ An example input to the Shortcut could look like this:
 [reminder 2](craftdocs://open?blockId=BF3FA431-BD47-466A-8DF7-C7A6725975AB&spaceId=2579f404-e3cd-4s7n-gfe1-6c342199c9g2)
 [reminder 3](craftdocs://open?blockId=3DEDFD80-6902-4460-8062-20F1CD273B7E&spaceId=2579f404-e3cd-4s7n-gfe1-6c342199c9g2)
 ```
+
 The input can be used to do anything you like. You can e.g. add each block to Apples Reminders app with links back to the original blocks in Craft, or export just the content to your favorite writing app.
 
 ## Template Shortcuts
 
 To help you develop your own shortcut and make use of the passed content I created two Template Shortcuts to support you develop your own SHortcut for Craftcuts.
+
 - [Template for use with Single Input](https://www.icloud.com/shortcuts/3f9715ecb5784e1caeea9d538d0798a1)
 - [Template for use with Multiple Input](https://www.icloud.com/shortcuts/67290191f1ac4741b864f8f07672a0f4)
 - [Template to add text content to the current page](https://www.icloud.com/shortcuts/aaf323bbecfe44aaaa68bae257df7bb4)
@@ -108,6 +110,14 @@ I want to provide as many Craftcuts as possible in this repository in the table 
 I plan to add more features and configuration options to this eXtension in the future to pass more / different content to the triggered shortcuts. If you have ideas or use cases which are not yet supported just create a new issue in the repository or reach out to me on the platform of your choice: [contactme](https://flohgro.com/contactme/).
 
 ## Changelog
+
+### v0.4 editable shortcuts
+
+- **new:** tab layout to divide into *Shortcuts* and *Info*
+- **new:** version check in the *Info* Tab (thanks to [@DharamKapila](https://twitter.com/DharamKapila) for the support and inspiration)
+- **new:** configured shortcuts can now be edited with the new edit button on the right of each Craftcut
+- **new:** configured shortcuts can be reordered in the edit menu (move up / move down buttons)
+- **fixed:** in some edge cases the validation of the configuration was not done properly
 
 ### v0.3.2 refinements for task moving feature
 
