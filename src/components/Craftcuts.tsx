@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, ButtonGroup, IconButton } from "@chakra-ui/button";
-import { EditIcon, ExternalLinkIcon } from "@chakra-ui/icons";
+import { CheckIcon, ChevronDownIcon, ChevronUpIcon, EditIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import { Box, Center, Checkbox, CheckboxGroup, FormControl, FormHelperText, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, useToast } from "@chakra-ui/react";
 import { Craftcut, craftcutsObjects, updateShortcutsData } from "../settingsUtils";
 import { getAllBlocksFromCurrentPage, getAllUrlsFromCurrentPage, getAndCancelUncheckedTodoItemsFromCurrentPage, getAndDeleteUncheckedTodoItemsFromCurrentPage, getCheckedTodoItemsFromCurrentPage, getSelectedBlocksAsMdStingsFromCurrentPage, getTitleOfCurrentPage, getUncheckedTodoItemsFromCurrentPage } from "../craftBlockInteractor";
@@ -334,9 +334,6 @@ const Craftcuts: React.FC = () => {
       }
 
 
-      //craftcutsObjects.push(craftcut)
-
-
       toast({
         id: "editedToast",
         position: "bottom",
@@ -365,11 +362,91 @@ const Craftcuts: React.FC = () => {
 
   }
 
+  const onMoveUp = () => {
+    let foundObj = craftcutsObjects.filter((obj) => obj.getExactName() + obj.getDisplayName() + obj.getInputSettings().join(",") == scToEditIdentifier);
+    let curIndex: number = craftcutsObjects.indexOf(foundObj[0]);
+    let toastText = "moved up"
+    // we need to decrease the index
+    let newIndex = curIndex - 1;
+    if(newIndex >= 0){
+      craftcutsObjects.splice(newIndex, 0, craftcutsObjects.splice(curIndex,1)[0])
+      updateShortcutsData();
+    } else {
+      toastText = "already on top"
+    }
+    
+    toast({
+      id: "editedToast",
+      position: "bottom",
+      duration: 2000,
+      render: () => (
+        <Center>
+          <Box color='white' w='90%' borderRadius='lg' p={3} bg='blue.500'>
+            {toastText}
+          </Box>
+        </Center>
+      ),
+    })
+
+
+  //   function array_move(arr, old_index, new_index) {
+  //     if (new_index >= arr.length) {
+  //         var k = new_index - arr.length + 1;
+  //         while (k--) {
+  //             arr.push(undefined);
+  //         }
+  //     }
+  //     arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+  //     return arr; // for testing
+  // };
+  }
+
+  const onMoveDown = () => {
+    let foundObj = craftcutsObjects.filter((obj) => obj.getExactName() + obj.getDisplayName() + obj.getInputSettings().join(",") == scToEditIdentifier);
+    let curIndex: number = craftcutsObjects.indexOf(foundObj[0]);
+    let toastText = "moved down"
+    // we need to decrease the index
+    let newIndex = curIndex + 1;
+    if(newIndex < craftcutsObjects.length){
+      craftcutsObjects.splice(newIndex, 0, craftcutsObjects.splice(curIndex,1)[0])
+      updateShortcutsData();
+    } else {
+      toastText = "already on bottom"
+    }
+    
+    toast({
+      id: "editedToast",
+      position: "bottom",
+      duration: 2000,
+      render: () => (
+        <Center>
+          <Box color='white' w='90%' borderRadius='lg' p={3} bg='blue.500'>
+          {toastText}
+          </Box>
+        </Center>
+      ),
+    })
+
+
+
+  //   function array_move(arr, old_index, new_index) {
+  //     if (new_index >= arr.length) {
+  //         var k = new_index - arr.length + 1;
+  //         while (k--) {
+  //             arr.push(undefined);
+  //         }
+  //     }
+  //     arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+  //     return arr; // for testing
+  // };
+  }
+
   return (
     <>
       <Stack spacing='2px' direction={['column']}>
         {
-          craftcutsObjects.map((element) => (
+          craftcutsObjects
+            .map((element) => (
             <ButtonGroup isAttached>
               <Button
                 key={element.getExactName()}
@@ -392,7 +469,7 @@ const Craftcuts: React.FC = () => {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Add Shortcut</ModalHeader>
+          <ModalHeader>Edit Shortcut</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <Stack spacing='10px' direction={['column']}>
@@ -443,7 +520,13 @@ const Craftcuts: React.FC = () => {
             </Stack>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme='green' mr={3} onClick={onEdit} isLoading={isLoadingEdit}>
+          <Button colorScheme='purple' leftIcon={<ChevronUpIcon />} mr={2} onClick={onMoveUp}>
+              Move Up
+            </Button>
+            <Button colorScheme='purple' leftIcon={<ChevronDownIcon />} mr={5} onClick={onMoveDown}>
+              Move Down
+            </Button>
+            <Button colorScheme='green' rightIcon={<CheckIcon />} mr={0} onClick={onEdit} isLoading={isLoadingEdit}>
               Apply Changes
             </Button>
           </ModalFooter>

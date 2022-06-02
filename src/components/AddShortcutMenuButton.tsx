@@ -3,7 +3,7 @@ import { Button } from "@chakra-ui/button";
 import { PlusSquareIcon } from "@chakra-ui/icons";
 import { useToast } from "@chakra-ui/toast";
 import { Box, Center, Checkbox, CheckboxGroup, FormControl, FormHelperText, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack } from "@chakra-ui/react";
-import { craftcutsSet, Craftcut, updateShortcutsData, craftcutsObjects } from "../settingsUtils";
+import { Craftcut, updateShortcutsData, craftcutsObjects } from "../settingsUtils";
 
 const AddShortcutMenuButton: React.FC = () => {
   // const projectList = useRecoilValue(States.projects);
@@ -130,7 +130,7 @@ const AddShortcutMenuButton: React.FC = () => {
       let data = JSON.stringify(new Craftcut(exactName, displayName, inputSettings, inputSeparator));
       let craftcut = Craftcut.fromJSON(JSON.parse(data));
 
-      craftcutsSet.add(craftcut)
+      //craftcutsSet.add(craftcut)
       craftcutsObjects.push(craftcut)
 
 
