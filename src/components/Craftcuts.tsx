@@ -1,5 +1,5 @@
 import { Button, ButtonGroup, IconButton } from "@chakra-ui/button";
-import { CheckIcon, ChevronDownIcon, ChevronUpIcon, EditIcon, ExternalLinkIcon } from "@chakra-ui/icons";
+import { ArrowDownIcon, ArrowUpIcon, CheckIcon, EditIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import { Box, Center, Checkbox, CheckboxGroup, FormControl, FormHelperText, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, useToast } from "@chakra-ui/react";
 import React from "react";
 import { getAllBlocksFromCurrentPage, getAllUrlsFromCurrentPage, getAndCancelUncheckedTodoItemsFromCurrentPage, getAndDeleteUncheckedTodoItemsFromCurrentPage, getCheckedTodoItemsFromCurrentPage, getSelectedBlocksAsMdStingsFromCurrentPage, getTitleOfCurrentPage, getUncheckedTodoItemsFromCurrentPage } from "../craftBlockInteractor";
@@ -495,14 +495,14 @@ const Craftcuts: React.FC = () => {
             </Stack>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme='purple' leftIcon={<ChevronUpIcon />} mr={2} onClick={onMoveUp}>
-              Move Up
+            <Button colorScheme='purple' leftIcon={<ArrowUpIcon />} mr={1} size='sm' onClick={onMoveUp}>
+              Move
             </Button>
-            <Button colorScheme='purple' leftIcon={<ChevronDownIcon />} mr={5} onClick={onMoveDown}>
-              Move Down
+            <Button colorScheme='purple' leftIcon={<ArrowDownIcon />} mr={2} size='sm' onClick={onMoveDown}>
+              Move
             </Button>
-            <Button colorScheme='green' rightIcon={<CheckIcon />} mr={0} onClick={onEdit} isLoading={isLoadingEdit}>
-              Apply Changes
+            <Button colorScheme='green' rightIcon={<CheckIcon />} mr={0} size='sm' onClick={onEdit} isLoading={isLoadingEdit}>
+              Apply
             </Button>
           </ModalFooter>
         </ModalContent>
