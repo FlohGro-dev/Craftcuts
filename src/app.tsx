@@ -1,20 +1,19 @@
-import * as React from "react"
-import * as ReactDOM from 'react-dom'
+import { Box, Container, Flex } from "@chakra-ui/layout";
+import { Badge, Center, ChakraProvider, extendTheme, Tab, TabList, TabPanel, TabPanels, Tabs, ThemeConfig } from "@chakra-ui/react";
+import { Skeleton } from "@chakra-ui/skeleton";
+import { DevicePlatform } from "@craftdocs/craft-extension-api";
+import * as React from "react";
+import * as ReactDOM from 'react-dom';
 import * as Recoil from "recoil";
 import { AddShortcutManueButton, Craftcuts, InfoPanel, RemoveShortcutButton } from "./components";
-import { ChakraProvider, ThemeConfig, Badge, Center, Tabs, Tab, TabList, TabPanel, TabPanels } from "@chakra-ui/react";
-import { Container, Box, Flex } from "@chakra-ui/layout";
-import { extendTheme } from "@chakra-ui/react";
-import { Skeleton } from "@chakra-ui/skeleton";
-import { CraftEnv } from "./types"
-import { DevicePlatform } from "@craftdocs/craft-extension-api";
 import { isInitialized, loadShortcutData } from "./settingsUtils";
+import { CraftEnv } from "./types";
 // import craftXIconSrc from "./craftx-icon.png"
 // import { TodoistApi } from '@doist/todoist-api-typescript'
 // import { CraftBlockInsert, CraftBlock, CraftTextBlock, CraftTextRun } from "@craftdocs/craft-extension-api";
 
 const config: ThemeConfig = {
-//  initialColorMode: getCraftColorMode(),
+  //  initialColorMode: getCraftColorMode(),
   //initialColorMode: useCraftEnv().isDarkMode ? 'dark':'light',
   initialColorMode: 'light',
   useSystemColorMode: true,
@@ -22,13 +21,14 @@ const config: ThemeConfig = {
 
 //const { colorMode, toggleColorMode } = useColorMode();
 
-const theme = extendTheme({ config,
-    fontSizes: {
-      md: "13px",
-      sm: "11px",
-      lg: "15px",
-    },
-    colors: {
+const theme = extendTheme({
+  config,
+  fontSizes: {
+    md: "13px",
+    sm: "11px",
+    lg: "15px",
+  },
+  colors: {
     transparent: 'transparent',
     black: '#000',
     white: '#fff',
@@ -40,7 +40,7 @@ const theme = extendTheme({ config,
     },
     // ...
   },
- });
+});
 
 const Content: React.FC = () => {
   return (
@@ -62,15 +62,15 @@ const Content: React.FC = () => {
         </TabList>
         <TabPanels>
           <TabPanel>
-          <Badge>Add / Remove</Badge>
-      <AddShortcutManueButton />
-      <Center height='5px'>
-      </Center>
-      <RemoveShortcutButton />
-      <Center height='1px'>
-      </Center>
-      <Badge>Run</Badge>
-      <Craftcuts />
+            <Badge>Add / Remove</Badge>
+            <AddShortcutManueButton />
+            <Center height='5px'>
+            </Center>
+            <RemoveShortcutButton />
+            <Center height='1px'>
+            </Center>
+            <Badge>Run</Badge>
+            <Craftcuts />
           </TabPanel>
           <TabPanel>
             <InfoPanel />
@@ -94,26 +94,26 @@ const App: React.FC = () => {
 
   return <Content />;
 };
-setTimeout(async function(){
-  if(!isInitialized){
+setTimeout(async function () {
+  if (!isInitialized) {
     loadShortcutData()
   }
-},200)
+}, 200)
 
 const Wrapper: React.FC = () => {
   return (
     <ChakraProvider
       theme={theme}
-        //   extendTheme({
-        //   //initialColorMode: getCraftColorMode(),
-        //   initialColorMode: `dark`,
-        //   useSystemColorMode: false,
-        //   fontSizes: {
-        //     md: "13px",
-        //     sm: "11px",
-        //     lg: "15px",
-        //   },
-        // })}
+    //   extendTheme({
+    //   //initialColorMode: getCraftColorMode(),
+    //   initialColorMode: `dark`,
+    //   useSystemColorMode: false,
+    //   fontSizes: {
+    //     md: "13px",
+    //     sm: "11px",
+    //     lg: "15px",
+    //   },
+    // })}
     >
       <Container
         minW={260}

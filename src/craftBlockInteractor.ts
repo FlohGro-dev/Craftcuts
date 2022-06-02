@@ -34,7 +34,7 @@ export async function getUncheckedTodoItemsFromCurrentPage() {
   }
   const pageBlock = getPageResult.data
 
-  pageBlock.subblocks.forEach(function(subBlock) {
+  pageBlock.subblocks.forEach(function (subBlock) {
     if (subBlock.listStyle.type == "todo") {
       if (subBlock.listStyle.state == "unchecked") {
         if (subBlock.type == "textBlock") {
@@ -63,7 +63,7 @@ export async function getCheckedTodoItemsFromCurrentPage() {
   }
   const pageBlock = getPageResult.data
 
-  pageBlock.subblocks.forEach(function(subBlock) {
+  pageBlock.subblocks.forEach(function (subBlock) {
     if (subBlock.listStyle.type == "todo") {
       if (subBlock.listStyle.state == "checked") {
         if (subBlock.type == "textBlock") {
@@ -91,7 +91,7 @@ export async function getAllBlocksFromCurrentPage() {
   }
   const pageBlock = getPageResult.data
 
-  pageBlock.subblocks.forEach(function(subBlock) {
+  pageBlock.subblocks.forEach(function (subBlock) {
     if (subBlock.type == "textBlock") {
       blockMdStrings.push(getCraftTextBlockMdString(subBlock));
     } else if (subBlock.type == "urlBlock") {
@@ -124,7 +124,7 @@ export async function getAllUrlsFromCurrentPage() {
   }
   const pageBlock = getPageResult.data
 
-  pageBlock.subblocks.forEach(function(subBlock) {
+  pageBlock.subblocks.forEach(function (subBlock) {
     if (subBlock.type == "urlBlock") {
       urlBlocks.push(subBlock);
     }
@@ -151,7 +151,7 @@ export async function getAndCancelUncheckedTodoItemsFromCurrentPage() {
   }
   const pageBlock = getPageResult.data
 
-  pageBlock.subblocks.forEach(function(subBlock) {
+  pageBlock.subblocks.forEach(function (subBlock) {
     if (subBlock.listStyle.type == "todo") {
       if (subBlock.listStyle.state == "unchecked") {
         if (subBlock.type == "textBlock") {
@@ -193,7 +193,7 @@ export async function getAndDeleteUncheckedTodoItemsFromCurrentPage() {
   }
   const pageBlock = getPageResult.data
 
-  pageBlock.subblocks.forEach(function(subBlock) {
+  pageBlock.subblocks.forEach(function (subBlock) {
     if (subBlock.listStyle.type == "todo") {
       if (subBlock.listStyle.state == "unchecked") {
         if (subBlock.type == "textBlock") {

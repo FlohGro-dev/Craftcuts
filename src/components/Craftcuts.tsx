@@ -1,9 +1,9 @@
-import React from "react";
 import { Button, ButtonGroup, IconButton } from "@chakra-ui/button";
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon, EditIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import { Box, Center, Checkbox, CheckboxGroup, FormControl, FormHelperText, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, useToast } from "@chakra-ui/react";
-import { Craftcut, craftcutsObjects, updateShortcutsData } from "../settingsUtils";
+import React from "react";
 import { getAllBlocksFromCurrentPage, getAllUrlsFromCurrentPage, getAndCancelUncheckedTodoItemsFromCurrentPage, getAndDeleteUncheckedTodoItemsFromCurrentPage, getCheckedTodoItemsFromCurrentPage, getSelectedBlocksAsMdStingsFromCurrentPage, getTitleOfCurrentPage, getUncheckedTodoItemsFromCurrentPage } from "../craftBlockInteractor";
+import { Craftcut, craftcutsObjects, updateShortcutsData } from "../settingsUtils";
 
 const Craftcuts: React.FC = () => {
   const [isLoading, setIsLoading] = React.useState(false);
